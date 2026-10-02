@@ -1,260 +1,303 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#fff5ef">
-  <meta name="description" content="An interactive storybook welcome for Gatik's younger sister, born 29 September.">
-  <title>Welcome to the family</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
-  <style>
-    :root{--paper:#fff8f2;--pink:#f7c6c5;--rose:#d85e6a;--plum:#513644;--peach:#f4a38f;--lav:#d8c9de;--sage:#9dad8d;--line:#ecd8d1;--white:#fffdf9;--shadow:0 10px 30px rgba(89,52,58,.10)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--plum);font-family:"DM Sans",sans-serif;line-height:1.55}button{font:inherit;cursor:pointer}img,video{display:block;max-width:100%}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--rose);outline-offset:3px}
-    .site{overflow:hidden;background:var(--paper)}.topbar{position:fixed;z-index:20;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:calc(13px + env(safe-area-inset-top)) 18px 13px;background:#fff8f2dc;border-bottom:1px solid #eedbd5;backdrop-filter:blur(10px)}.wordmark{font-family:Fraunces,serif;font-size:1.04rem;line-height:1;color:var(--rose)}.language{display:flex;gap:3px;padding:3px;border:1px solid var(--line);border-radius:7px;background:var(--white)}.language button{border:0;background:transparent;color:#997d85;padding:7px 9px;border-radius:5px;font-size:.72rem;font-weight:700}.language button.active{background:var(--rose);color:white}
-    .page{width:min(100% - 32px,480px);margin:auto}.chapter{min-height:100svh;padding:104px 0 46px;position:relative}
-    .chapter-card{text-align:center;padding:0 0 8px}.chapter-card .kicker{display:inline-block;font:700 .68rem "DM Sans",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--rose);border:1px solid #e6aeb0;border-radius:20px;padding:7px 14px;background:#fff5f1}
-    .hero{display:flex;flex-direction:column;justify-content:flex-start}.hero-art{position:relative;margin:10px -16px 26px;height:52svh;min-height:380px;max-height:560px;border-radius:0 0 48% 48%;overflow:hidden;background:#f8d6cf url("public/assets/illustrations/pram-meadow.jpg") center/cover no-repeat}.hero-art:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#fff8f200 50%,#fff8f2 100%)}.hero-card{position:absolute;z-index:2;bottom:7%;left:50%;width:62%;transform:translateX(-50%) rotate(-3deg);padding:7px 7px 25px;background:var(--white);box-shadow:var(--shadow)}.hero-card img{aspect-ratio:4/5;width:100%;object-fit:cover;object-position:center;border:1px solid #f0e1db}.hero-card figcaption{font-family:Fraunces,serif;text-align:center;color:var(--rose);font-size:1.05rem;margin-top:8px}.doodle{position:absolute;z-index:3;color:var(--rose);font-size:2rem}.doodle.left{left:13%;top:30%}.doodle.right{right:12%;top:21%;color:#b59cbf}.flower-line{position:absolute;left:0;right:0;bottom:0;height:28%;background:url("public/assets/illustrations/floral-hero.jpg") bottom/cover no-repeat;opacity:.48;mix-blend-mode:multiply}
-    .hero-copy{text-align:center;position:relative;z-index:4}.eyebrow{font-size:.75rem;letter-spacing:.08em;color:#ae7a83;margin:0 0 11px}.hero h1{font:600 clamp(2.8rem,12vw,4.8rem)/.95 Fraunces,serif;letter-spacing:-.05em;margin:0 auto 16px;color:var(--plum);max-width:380px}.hero h1 em{color:var(--rose);font-style:normal}.hero-copy p{max-width:340px;margin:0 auto 20px;color:#806a70}
-    .primary{border:0;border-radius:8px;padding:14px 19px;background:var(--rose);color:white;font-weight:700;box-shadow:0 5px 0 #b94d59;transition:background .2s,box-shadow .2s}.primary:hover{background:#c9505d;box-shadow:0 3px 0 #b94d59}.primary:active{box-shadow:0 1px 0 #a94450;transform:translateY(3px)}.secondary{border:1px solid var(--line);border-radius:8px;padding:12px 17px;background:transparent;color:var(--rose);font-weight:700}.ghost{background:none;border:0;color:#997d85;font-size:.85rem;text-decoration:underline;margin-top:12px}
-    .identity{margin:6px auto 4px;max-width:360px;text-align:left;background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:18px}.identity h3{font:600 1.15rem Fraunces,serif;margin:0 0 4px;color:var(--plum)}.identity p{font-size:.85rem;color:#8b7077;margin:0 0 12px}.identity label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.06em;color:#ae7a83;margin:10px 0 4px}.identity input{width:100%;border:1px solid var(--line);border-radius:7px;padding:11px 12px;font:inherit;background:#fffaf6;color:var(--plum)}.id-row{display:flex;gap:8px;align-items:center}.id-row input:first-child{flex:1.2}.id-row input:last-child{flex:1}.id-row span{font-size:.85rem;color:#8b7077;white-space:nowrap}
-    .story{padding-top:100px}.section-heading{margin-bottom:22px}.section-heading h2{font:600 clamp(2.2rem,9vw,3.6rem)/1 Fraunces,serif;letter-spacing:-.04em;margin:0;color:var(--plum)}.section-heading p{color:#806a70;margin:12px 0 0}.paper-panel{border:1px solid var(--line);background:var(--white);box-shadow:var(--shadow);padding:20px;max-width:480px;border-radius:7px;position:relative}.paper-panel:before{content:"";position:absolute;inset:7px;border:1px dashed #edc6c0;pointer-events:none;border-radius:4px}.paper-panel>*{position:relative}.photo-stack{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end;margin:0 -4px 20px}.photo-stack figure{margin:0;background:var(--white);padding:7px 7px 22px;box-shadow:0 5px 14px #7e59601a}.photo-stack figure:first-child{transform:rotate(-3deg)}.photo-stack figure:last-child{transform:rotate(4deg)}.photo-stack img{width:100%;aspect-ratio:1/1.18;object-fit:cover;background:#f2e7df}.photo-stack figcaption{text-align:center;font-family:Fraunces,serif;font-size:.9rem;margin-top:7px}.story-copy{font:500 1.17rem/1.55 Fraunces,serif;color:#62454d;margin:0 0 18px}.story-copy strong{color:var(--rose)}
-    .tour-stop{border:1px solid var(--line);background:#fffaf6;border-radius:8px;padding:14px;margin:0 0 10px;width:100%;text-align:left;display:flex;gap:12px;align-items:center;transition:border-color .2s,background .2s}.tour-stop:hover{border-color:#e59ca1}.tour-stop.open{background:#fff0eb;border-color:#e59ca1}.tour-stop .ticon{font-size:1.9rem;flex:0 0 auto}.tour-stop .tlabel{font:600 1.05rem Fraunces,serif;color:var(--plum)}.tour-stop .tbody{display:none;font-size:.92rem;color:#7a5f66;margin-top:6px;line-height:1.5}.tour-stop.open .tbody{display:block}.tour-cta{margin-top:16px}
-    .gift-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 18px}.gift{border:1px solid var(--line);background:var(--white);border-radius:8px;padding:16px 6px;min-height:132px;transition:border-color .2s,background .2s,transform .15s}.gift:hover{border-color:#e59ca1}.gift.picked{background:#fff0eb;border-color:var(--rose);transform:translateY(-2px);box-shadow:var(--shadow)}.gift .gicon{font-size:2.1rem;display:block;margin-bottom:8px}.gift span:last-child{font:500 .85rem/1.25 Fraunces,serif;color:var(--plum)}.nursery{position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);margin:0 0 8px}.nursery img{width:100%;aspect-ratio:4/3;object-fit:cover}.nursery .placed{position:absolute;font-size:3rem;filter:drop-shadow(0 4px 8px rgba(89,52,58,.35));animation:floaty 3s ease-in-out infinite}.nursery .placed.star{top:8%;left:50%;transform:translateX(-50%)}.nursery .placed.feather{top:38%;left:12%}.nursery .placed.seed{bottom:10%;right:10%}.gift-note{text-align:center;font-size:.85rem;color:#8b7077;margin:0 0 4px;min-height:1.4em}
-    @keyframes floaty{0%,100%{margin-top:0}50%{margin-top:-9px}}
-    .gatik{background:#fff1ec}.gatik-layout{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:center}.gatik-art{border-radius:5px;overflow:hidden;transform:rotate(-2deg);border:7px solid white;box-shadow:var(--shadow)}.gatik-art img{aspect-ratio:4/5;object-fit:cover;background:#e6e1db}.gatik-note{font-family:Fraunces,serif;font-size:1.2rem;line-height:1.25}.gatik-note .stamp{display:inline-block;font:700 .65rem "DM Sans",sans-serif;letter-spacing:.08em;color:var(--rose);border:1px solid #e6aeb0;padding:5px 7px;transform:rotate(3deg);margin-bottom:12px}.gatik-note p{margin:0}.tiny{font:400 .84rem/1.55 "DM Sans",sans-serif;color:#8b7077;margin-top:13px}
-    .reel{padding-top:90px}.reel-window{background:#f4d0cc;border-radius:8px;overflow:hidden;border:1px solid #e7bcb8;box-shadow:var(--shadow);max-width:480px}.reel-window video{width:100%;aspect-ratio:4/5;object-fit:cover;background:#f2d6d0}.reel-copy{padding:17px 16px 19px}.reel-copy h3{font:600 1.55rem/1 Fraunces,serif;margin:0 0 7px}.reel-copy p{color:#806a70;margin:0;font-size:.92rem}.reel-dots{display:flex;gap:6px;margin:16px 0 0}.reel-dots button{width:28px;height:5px;padding:0;border:0;border-radius:3px;background:#e5c1bd}.reel-dots button.active{background:var(--rose)}
-    .wishform textarea{width:100%;min-height:130px;border:1px solid var(--line);border-radius:8px;padding:14px;font:500 1.05rem/1.5 Fraunces,serif;color:var(--plum);background:#fffaf6;resize:vertical}.wishform .from-row{display:flex;gap:8px;align-items:center;margin:12px 0 16px;font-size:.9rem;color:#8b7077}.wishform .from-row input{border:0;border-bottom:1px dashed #d8a7ab;background:transparent;font:inherit;color:var(--plum);padding:4px 2px;min-width:0}.wishform .from-row input:first-of-type{flex:1.1}.wishform .from-row input:last-of-type{flex:1}
-    .sealed{display:none;text-align:center;padding:26px 10px}.sealed.show{display:block;animation:fade .4s ease}.wax{width:74px;height:74px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e88a93,#c9505d 70%);box-shadow:0 4px 10px #7e596033,inset 0 2px 5px #ffffff55;display:flex;align-items:center;justify-content:center;color:#fff;font:600 1.7rem Fraunces,serif;animation:stamp .5s cubic-bezier(.2,2.4,.4,1)}.sealed h3{font:600 1.4rem Fraunces,serif;margin:0 0 6px}.sealed p{color:#8b7077;font-size:.9rem;margin:0 0 4px}.countdown{font:700 1.05rem "DM Sans",sans-serif;color:var(--rose);margin:10px 0 16px}.seal-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-    @keyframes stamp{0%{transform:scale(2.4);opacity:0}60%{transform:scale(.94);opacity:1}100%{transform:scale(1)}}
-    .mine{margin-top:18px}.mine h4{font:700 .72rem "DM Sans",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#ae7a83;margin:0 0 10px}.mine .wishchip{background:#fff5f0;border-left:3px solid var(--rose);padding:10px 12px;margin:0 0 8px;font:500 .98rem/1.4 Fraunces,serif;border-radius:0 6px 6px 0}.mine .wishchip small{display:block;font:400 .72rem "DM Sans",sans-serif;color:#997d85;margin-top:4px}
-    .gallery-wall{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}.polaroid{background:var(--white);padding:8px 8px 26px;box-shadow:0 5px 14px #7e59601a;position:relative}.polaroid:nth-child(odd){transform:rotate(-2.5deg)}.polaroid:nth-child(even){transform:rotate(2deg)}.polaroid img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#f2e7df}.polaroid figcaption{text-align:center;font-family:Fraunces,serif;font-size:.82rem;color:#8b7077;margin-top:8px}.polaroid .soon{position:absolute;inset:8px 8px 34px;display:flex;align-items:center;justify-content:center;background:#f6ece6d9;font:600 .8rem Fraunces,serif;color:#ae7a83;text-align:center;padding:10px}
-    .final{padding:110px 0 60px;text-align:center}.final-frame{margin:0 -2px 25px;padding:10px;background:var(--white);border:1px solid var(--line);box-shadow:var(--shadow);transform:rotate(2deg)}.final-frame img{width:100%;aspect-ratio:4/3;object-fit:cover;background:#f0e5dd}.final h2{font:600 clamp(2.4rem,11vw,4.2rem)/.95 Fraunces,serif;letter-spacing:-.05em;margin:0 0 14px}.final p{color:#806a70}.lanterns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px 0 6px;min-height:40px}.lantern{border:1px solid #e6aeb0;background:radial-gradient(circle at 50% 35%,#ffe9e4,#f7c6c5);border-radius:46% 46% 48% 48%/58% 58% 42% 42%;width:64px;height:80px;font-size:1.3rem;color:#a94450;box-shadow:0 0 18px #f4a38f88;animation:floaty 4s ease-in-out infinite}.lantern small{display:block;font-size:.55rem;font-family:"DM Sans",sans-serif;margin-top:2px}.lantern-hint{font-size:.8rem;color:#ae7a83;margin:0 0 18px}
-    .signature{font:500 .78rem "DM Sans",sans-serif;letter-spacing:.06em;color:#b1858d;margin-top:31px}.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    .audio-bar{position:fixed;z-index:21;bottom:14px;left:50%;transform:translateX(-50%);width:min(calc(100% - 32px),448px);display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px 9px 14px;border:1px solid #e9cbc5;border-radius:8px;background:#fffaf6f2;box-shadow:var(--shadow);backdrop-filter:blur(8px)}.audio-bar span{font-size:.76rem;color:#866c73}.audio-bar .abtns{display:flex;gap:6px}.audio-bar button{border:0;border-radius:6px;padding:8px 10px;background:var(--rose);color:white;font-size:.75rem;font-weight:700}.audio-bar button[aria-pressed=true]{background:var(--plum)}.audio-bar button.plain{background:transparent;color:var(--rose);border:1px solid var(--line)}
-    @keyframes fade{from{opacity:0}to{opacity:1}}@media (min-width:700px){body{background:#f4e7e1}.site{width:520px;margin:auto;box-shadow:0 0 50px #69455012}.topbar{left:50%;right:auto;width:520px;transform:translateX(-50%)}.page{width:calc(100% - 54px)}.hero-art{margin-left:-27px;margin-right:-27px}.chapter{padding-bottom:66px}}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.primary,.gift,.tour-stop,.lantern,.nursery .placed,.wax,.sealed.show{transition:none;animation:none}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2b1e2e">
+<meta name="description" content="A cinematic storybook welcome for Gatik's younger sister — a living diary, from her first morning onward.">
+<title>Welcome to the family</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fff8f2;--cream:#fdeedf;--pink:#f7c6c5;--rose:#d85e6a;--rosedeep:#b94d59;--plum:#513644;--night:#2b1e2e;--night2:#3d2940;--gold:#e9b44c;--peach:#f4a38f;--line:#ecd8d1;--white:#fffdf9;--shadow:0 10px 30px rgba(89,52,58,.12)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--night);color:var(--paper);font-family:"DM Sans",sans-serif;line-height:1.55;overflow-x:hidden}button{font:inherit;cursor:pointer}img,video{display:block;max-width:100%}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+#fx{position:fixed;inset:0;z-index:60;pointer-events:none}
+.topbar{position:fixed;z-index:70;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;background:#2b1e2ecc;border-bottom:1px solid #ffffff22;backdrop-filter:blur(10px);transition:background .5s,border-color .5s}.topbar.light{background:#fff8f2dd;border-color:#eedbd5}.wordmark{font-family:Fraunces,serif;font-size:1rem;color:var(--gold)}.topbar.light .wordmark{color:var(--rose)}.language{display:flex;gap:3px;padding:3px;border:1px solid #ffffff33;border-radius:7px;background:#ffffff11}.topbar.light .language{border-color:var(--line);background:var(--white)}.language button{border:0;background:transparent;color:#e8d5d8;padding:7px 9px;border-radius:5px;font-size:.72rem;font-weight:700}.topbar.light .language button{color:#997d85}.language button.active{background:var(--rose);color:#fff}
+/* curtains */
+.curtain{position:fixed;inset:0;z-index:100;pointer-events:none;visibility:hidden}.curtain.on{visibility:visible;pointer-events:all}.cpanel{position:absolute;top:0;bottom:0;width:51%;background:repeating-linear-gradient(90deg,#7a2e3a 0 18px,#93363f 18px 36px,#6e2833 36px 54px);box-shadow:inset 0 0 80px #00000066;transition:transform 1.8s cubic-bezier(.7,0,.3,1)}.cpanel.left{left:0;border-right:3px solid #d8a24a}.cpanel.right{right:0;border-left:3px solid #d8a24a}.curtain.open .cpanel.left{transform:translateX(-102%)}.curtain.open .cpanel.right{transform:translateX(102%)}.cvalance{position:absolute;top:0;left:0;right:0;height:64px;background:repeating-linear-gradient(90deg,#7a2e3a 0 24px,#93363f 24px 48px);border-bottom:4px solid #d8a24a;box-shadow:0 6px 18px #00000055;transition:transform 1.8s cubic-bezier(.7,0,.3,1)}.curtain.open .cvalance{transform:translateY(-110%)}.cseal{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:92px;height:92px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f2cd72,#c98f2d 70%);display:flex;align-items:center;justify-content:center;font:600 2rem Fraunces,serif;color:#5b3a10;box-shadow:0 6px 24px #00000088;transition:opacity .6s,transform .8s}.curtain.open .cseal{opacity:0;transform:translate(-50%,-50%) scale(2.2)}
+/* intro + film */
+.intro{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 28px 40px;background:radial-gradient(120% 90% at 50% 10%,#3d2940 0%,#2b1e2e 55%,#1c121f 100%);position:relative;overflow:hidden}.intro .stars{position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 20% 30%,#fff8,transparent),radial-gradient(1px 1px at 60% 15%,#fff7,transparent),radial-gradient(2px 2px at 80% 40%,#fff6,transparent),radial-gradient(1px 1px at 35% 60%,#fff5,transparent),radial-gradient(1.5px 1.5px at 50% 80%,#fff5,transparent),radial-gradient(1px 1px at 90% 70%,#fff6,transparent);animation:twinkle 4s ease-in-out infinite alternate}.intro h1{font:600 clamp(2.6rem,11vw,4.4rem)/1 Fraunces,serif;letter-spacing:-.03em;margin:0 0 14px;color:var(--paper);position:relative}.intro h1 em{color:var(--gold);font-style:normal}.intro p{color:#d9c6cc;max-width:340px;margin:0 0 30px;position:relative}.btn-big{border:0;border-radius:12px;padding:17px 34px;background:linear-gradient(180deg,#e88a93,#c9505d);color:#fff;font-weight:700;font-size:1.05rem;box-shadow:0 8px 0 #93363f,0 14px 30px #00000066;transition:transform .15s,box-shadow .15s;position:relative}.btn-big:active{transform:translateY(5px);box-shadow:0 3px 0 #93363f}.ghostbtn{background:none;border:0;color:#b9a3ab;font-size:.88rem;text-decoration:underline;margin-top:16px;position:relative}
+@keyframes twinkle{from{opacity:.55}to{opacity:1}}
+.filmwrap{position:relative;min-height:100svh;background:#000;display:flex;align-items:center;justify-content:center}.filmwrap video{width:100%;height:100svh;object-fit:cover}.film-skip{position:absolute;bottom:calc(26px + env(safe-area-inset-bottom));right:18px;z-index:5;background:#00000088;color:#fff;border:1px solid #ffffff44;border-radius:8px;padding:10px 16px;font-size:.85rem}
+/* scenes */
+.scene{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;padding:100px 0 0}.scene-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.06)}.scene-scrim{position:absolute;inset:0;background:linear-gradient(180deg,#2b1e2e00 30%,#2b1e2ecc 78%,#1c121f 100%)}.scene-body{position:relative;z-index:2;width:min(100% - 40px,520px);margin:0 auto;padding:0 0 90px;color:var(--paper)}.kicker{display:inline-block;font:700 .68rem "DM Sans",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);border:1px solid #e9b44c88;border-radius:20px;padding:7px 14px;background:#00000055;margin-bottom:14px}.scene h2{font:600 clamp(2.2rem,9.5vw,3.8rem)/1.02 Fraunces,serif;letter-spacing:-.03em;margin:0 0 12px}.scene h2 em{color:var(--gold);font-style:normal}.scene .lede{color:#e6d3d6;font-size:1.02rem;margin:0 0 20px;max-width:420px}.narr-row{display:flex;gap:10px;align-items:center;margin:0 0 18px}.narr-btn{border:1px solid #e9b44c88;background:#00000066;color:var(--gold);border-radius:20px;padding:9px 16px;font-size:.82rem;font-weight:700}.narr-btn[aria-pressed=true]{background:var(--gold);color:#2b1e2e}
+.card{background:#fffdf9f2;color:var(--plum);border-radius:14px;padding:20px;box-shadow:var(--shadow);backdrop-filter:blur(4px)}.card h3{font:600 1.3rem Fraunces,serif;margin:0 0 8px}.card p{margin:0 0 12px;color:#6d545b;font-size:.95rem}
+.identity label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.06em;color:#ae7a83;margin:10px 0 4px}.identity input{width:100%;border:1px solid var(--line);border-radius:8px;padding:12px;font:inherit;background:#fff;color:var(--plum)}.id-row{display:flex;gap:8px;align-items:center}.id-row input:first-child{flex:1.2}.id-row input:last-child{flex:1}.id-row span{font-size:.85rem;color:#8b7077;white-space:nowrap}.cta-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}.btn-primary{border:0;border-radius:10px;padding:14px 22px;background:linear-gradient(180deg,#e88a93,#c9505d);color:#fff;font-weight:700;box-shadow:0 5px 0 #93363f}.btn-primary:active{transform:translateY(3px);box-shadow:0 2px 0 #93363f}.btn-ghost{background:#ffffff22;border:1px solid #ffffff55;color:var(--paper);border-radius:10px;padding:13px 20px;font-weight:700}.btn-light{background:transparent;border:1px solid var(--line);color:var(--rose);border-radius:10px;padding:12px 20px;font-weight:700}
+/* tour */
+.tour-stop{width:100%;border:1px solid #ffffff2e;background:#ffffff14;border-radius:12px;padding:15px;margin:0 0 10px;text-align:left;display:flex;gap:13px;align-items:center;color:var(--paper);backdrop-filter:blur(6px);transition:background .2s,border-color .2s}.tour-stop.open{background:#ffffff28;border-color:var(--gold)}.tour-stop .ticon{font-size:2rem}.tour-stop .tlabel{font:600 1.08rem Fraunces,serif}.tour-stop .tbody{display:none;font-size:.9rem;color:#e0cdd1;margin-top:6px}.tour-stop.open .tbody{display:block}
+/* gift */
+.gift-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 16px}.gift{border:1px solid #ffffff2e;background:#ffffff14;border-radius:12px;padding:16px 6px;min-height:128px;color:var(--paper);backdrop-filter:blur(6px);transition:transform .15s,border-color .2s,background .2s}.gift.picked{background:#e9b44c33;border-color:var(--gold);transform:translateY(-3px)}.gift .gicon{font-size:2.1rem;display:block;margin-bottom:8px}.gift span:last-child{font:500 .85rem/1.25 Fraunces,serif}.nursery{position:relative;border-radius:12px;overflow:hidden;margin:0 0 8px;box-shadow:var(--shadow)}.nursery img{width:100%;aspect-ratio:4/3;object-fit:cover}.nursery .placed{position:absolute;font-size:3rem;filter:drop-shadow(0 4px 10px #00000066);animation:floaty 3s ease-in-out infinite}.nursery .placed.star{top:6%;left:50%;transform:translateX(-50%)}.nursery .placed.feather{top:36%;left:10%}.nursery .placed.seed{bottom:8%;right:8%}.gift-note{text-align:center;font-size:.85rem;color:#e6d3d6;min-height:1.4em;margin:0 0 4px}
+@keyframes floaty{0%,100%{margin-top:0}50%{margin-top:-9px}}
+/* reel */
+.reel-window{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);background:#000}.reel-window video{width:100%;aspect-ratio:4/5;object-fit:cover}.reel-dots{display:flex;gap:8px;margin:14px 0 4px}.reel-dots button{width:34px;height:6px;padding:0;border:0;border-radius:3px;background:#ffffff44}.reel-dots button.active{background:var(--gold)}.reel-cap{font:600 1.1rem Fraunces,serif;color:var(--paper);margin:10px 0 2px}
+/* capsule */
+.wishform textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:10px;padding:14px;font:500 1.02rem/1.5 Fraunces,serif;color:var(--plum);background:#fff;resize:vertical}.from-row{display:flex;gap:8px;align-items:center;margin:12px 0 16px;font-size:.9rem;color:#8b7077}.from-row input{border:0;border-bottom:1px dashed #d8a7ab;background:transparent;font:inherit;color:var(--plum);padding:4px 2px;min-width:0}.from-row input:first-of-type{flex:1.1}.from-row input:last-of-type{flex:1}.sealed{display:none;text-align:center;padding:24px 8px}.sealed.show{display:block;animation:fade .4s ease}.wax{width:76px;height:76px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e88a93,#c9505d 70%);box-shadow:0 4px 12px #00000033,inset 0 2px 5px #ffffff55;display:flex;align-items:center;justify-content:center;color:#fff;font:600 1.8rem Fraunces,serif;animation:stamp .5s cubic-bezier(.2,2.4,.4,1)}.sealed h3{font:600 1.4rem Fraunces,serif;margin:0 0 6px;color:var(--plum)}.sealed p{color:#8b7077;font-size:.9rem;margin:0}.countdown{font:700 1.05rem "DM Sans",sans-serif;color:var(--rose);margin:10px 0 16px}.seal-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+@keyframes stamp{0%{transform:scale(2.4);opacity:0}60%{transform:scale(.94);opacity:1}100%{transform:scale(1)}}
+.mine{margin-top:16px}.mine h4{font:700 .7rem "DM Sans",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#ae7a83;margin:0 0 10px}.mine .wishchip{background:#fff5f0;border-left:3px solid var(--rose);padding:10px 12px;margin:0 0 8px;font:500 .98rem/1.4 Fraunces,serif;border-radius:0 6px 6px 0;color:var(--plum)}.mine .wishchip small{display:block;font:400 .72rem "DM Sans",sans-serif;color:#997d85;margin-top:4px}
+/* gallery + timeline */
+.gallery-wall{display:grid;grid-template-columns:1fr 1fr;gap:12px}.polaroid{background:#fffdf9;padding:8px 8px 24px;box-shadow:var(--shadow);position:relative;color:var(--plum)}.polaroid:nth-child(odd){transform:rotate(-2.5deg)}.polaroid:nth-child(even){transform:rotate(2deg)}.polaroid img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#f2e7df}.polaroid figcaption{text-align:center;font-family:Fraunces,serif;font-size:.8rem;color:#8b7077;margin-top:6px}.polaroid .soon{position:absolute;inset:8px 8px 32px;display:flex;align-items:center;justify-content:center;background:#f6ece6d9;font:600 .78rem Fraunces,serif;color:#ae7a83;text-align:center;padding:8px}
+.timeline{position:relative;margin:8px 0 0;padding-left:26px}.timeline:before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(#e9b44c,#d85e6a)}.tchapter{position:relative;margin:0 0 22px}.tchapter:before{content:"";position:absolute;left:-24px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px #e9b44c33}.tchapter .tyear{font:700 .72rem "DM Sans",sans-serif;letter-spacing:.18em;color:var(--gold)}.tchapter h3{font:600 1.35rem Fraunces,serif;margin:2px 0 6px;color:var(--paper)}.tchapter p{color:#d9c6cc;font-size:.93rem;margin:0 0 8px}.tchapter .tdate{font-size:.75rem;color:#a78e94}.tgifts{margin-top:10px}.tgift{border:1px solid #ffffff2e;border-radius:10px;padding:10px 12px;margin:0 0 8px;background:#ffffff10}.tgift b{font-family:Fraunces,serif;font-weight:600;color:var(--paper)}.tgift p{font-size:.85rem;margin:4px 0 0}.tmore{border:1px dashed #ffffff3d;border-radius:12px;padding:18px;text-align:center;color:#c9b2b8;font-size:.9rem}
+/* closing */
+.closing{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 26px 90px;background:radial-gradient(120% 100% at 50% 0%,#3d2940 0%,#2b1e2e 60%,#1c121f 100%);position:relative}.closing h2{font:600 clamp(2.4rem,10vw,4rem)/1 Fraunces,serif;margin:0 0 12px}.closing h2 em{color:var(--gold);font-style:normal}.closing p{color:#d9c6cc;max-width:360px}.lanterns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:24px 0 8px;min-height:40px}.lantern{border:1px solid #e9b44c88;background:radial-gradient(circle at 50% 35%,#ffe9e4,#f7c6c5);border-radius:46% 46% 48% 48%/58% 58% 42% 42%;width:66px;height:82px;font-size:1.35rem;color:#a94450;box-shadow:0 0 20px #f4a38f77;animation:floaty 4s ease-in-out infinite}.lantern small{display:block;font-size:.55rem;font-family:"DM Sans",sans-serif;margin-top:2px}.lantern-hint{font-size:.8rem;color:#a78e94;margin:0 0 20px}.signature{font-size:.78rem;letter-spacing:.06em;color:#a78e94;margin-top:34px}
+.moon{position:absolute;font-size:2.2rem;cursor:pointer;filter:drop-shadow(0 0 12px #e9b44c88);z-index:5}.egghint{font-size:.72rem;color:#8d747b;margin-top:26px}
+.audio-bar{position:fixed;z-index:70;bottom:14px;left:50%;transform:translateX(-50%);width:min(calc(100% - 32px),480px);display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px 9px 14px;border:1px solid #ffffff2c;border-radius:10px;background:#1c121fd9;backdrop-filter:blur(8px)}.audio-bar span{font-size:.76rem;color:#d9c6cc}.audio-bar .abtns{display:flex;gap:6px}.audio-bar button{border:0;border-radius:6px;padding:8px 10px;background:var(--rose);color:#fff;font-size:.75rem;font-weight:700}.audio-bar button[aria-pressed=true]{background:var(--gold);color:#2b1e2e}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@keyframes fade{from{opacity:0}to{opacity:1}}.reveal{opacity:0;transform:translateY(36px);transition:opacity .9s ease,transform .9s ease}.reveal.in{opacity:1;transform:none}
+@media (min-width:700px){.scene-body{width:min(100% - 60px,560px)}.topbar{left:50%;right:auto;width:640px;transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal,.cpanel,.cvalance,.cseal,.nursery .placed,.lantern,.intro .stars{transition:none;animation:none}.reveal{opacity:1;transform:none}}
+</style>
 </head>
 <body>
-  <div class="site">
-    <header class="topbar"><div class="wordmark" data-copy="wordmark">Welcome to the family</div><div class="language" aria-label="Language"><button class="active" data-lang="en">English</button><button data-lang="hi">हिन्दी</button></div></header>
-    <main>
-      <!-- ARRIVAL -->
-      <section class="chapter hero" id="start">
-        <div class="hero-art" aria-hidden="true"><span class="doodle left">♡</span><span class="doodle right">✿</span><div class="flower-line"></div>
-          <figure class="hero-card"><img src="public/assets/photos/baby-01.jpg" data-fallback="public/assets/illustrations/illustrated-baby.jpg" alt="A peaceful photo of the newborn baby girl"><figcaption data-copy="heroCaption">the newest little love</figcaption></figure>
-        </div>
-        <div class="page hero-copy">
-          <div class="chapter-card"><span class="kicker" data-copy="arrivalCard">A story in six chapters</span></div>
-          <p class="eyebrow" data-copy="date">29 September · a new beginning</p>
-          <h1 data-copy="heroTitle">Someone tiny<br><em>has arrived.</em></h1>
-          <p data-copy="heroIntro">A beautiful baby girl has joined the family — Gatik's younger sister. This is her story, and you're part of it.</p>
-          <div class="identity" id="identityBox">
-            <h3 data-copy="idTitle">Before we begin…</h3>
-            <p data-copy="idLine">Tell her who came to visit.</p>
-            <label for="vname" data-copy="idName">Your name</label>
-            <input id="vname" type="text" autocomplete="name" maxlength="40" data-ph="idNamePh" placeholder="Your name">
-            <label data-copy="idRel">Your relation to her</label>
-            <div class="id-row"><span data-copy="idHer">her</span><input id="vrel" type="text" maxlength="30" data-ph="idRelPh" placeholder="mamu, aunt…"></div>
-          </div>
-          <div style="margin-top:18px"><button class="primary" id="beginSound" data-copy="beginSound">♪ Begin with sound</button></div>
-          <div><button class="ghost" id="beginQuiet" data-copy="beginQuiet">or continue quietly →</button></div>
-        </div>
-      </section>
+<canvas id="fx"></canvas>
+<div class="curtain on" id="curtain" aria-hidden="true"><div class="cpanel left"></div><div class="cpanel right"></div><div class="cvalance"></div><div class="cseal">♥</div></div>
+<header class="topbar" id="topbar"><div class="wordmark" data-copy="wordmark">Welcome to the family</div><div class="language" aria-label="Language"><button class="active" data-lang="en">English</button><button data-lang="hi">हिन्दी</button></div></header>
 
-      <!-- CHAPTER ONE · SEPTEMBER 29 -->
-      <section class="chapter story page" id="story">
-        <div class="chapter-card"><span class="kicker" data-copy="ch1card">Chapter One · The morning she arrived</span></div>
-        <div class="section-heading"><h2 data-copy="meetTitle">Meet Gatik's younger sister.</h2><p data-copy="meetIntro">She is tiny, peaceful, and already surrounded by familiar voices and warm arms.</p></div>
-        <div class="paper-panel">
-          <div class="photo-stack">
-            <figure><img src="public/assets/photos/baby-02.jpg" data-fallback="public/assets/illustrations/pram-mobile.jpg" alt="The baby girl sleeping peacefully"><figcaption data-copy="cap1">hello, beautiful</figcaption></figure>
-            <figure><img src="public/assets/photos/family-arrival-01.jpg" data-fallback="public/assets/illustrations/floral-hero.jpg" alt="Family gathered to welcome the baby"><figcaption data-copy="cap2">already so loved</figcaption></figure>
-          </div>
-          <p class="story-copy" data-copy="meetBody">Her first chapter is full of soft blankets, sleepy faces, flowers, and the kind of love that gathers everyone close.</p>
-          <button class="secondary" data-scroll="tour" data-copy="next">Take Gatik's tour</button>
-        </div>
-      </section>
+<!-- INTRO -->
+<section class="intro" id="intro">
+  <div class="stars"></div>
+  <p class="kicker" data-copy="introKicker" style="position:relative">A living storybook</p>
+  <h1 data-copy="introTitle">Every family has a story.<br><em>This is hers.</em></h1>
+  <p data-copy="introLede">Tap to open the curtains. A short film is about to begin — narrated like the old storybooks, for Gatik's younger sister.</p>
+  <div><button class="btn-big" id="openCurtains" data-copy="openBtn">Open the curtains</button></div>
+  <div><button class="ghostbtn" id="skipFilm" data-copy="skipBtn">or step straight into the story →</button></div>
+</section>
 
-      <!-- CHAPTER TWO · GATIK'S TOUR -->
-      <section class="chapter story page" id="tour">
-        <div class="chapter-card"><span class="kicker" data-copy="ch2card">Chapter Two · Gatik's tour</span></div>
-        <div class="section-heading"><h2 data-copy="tourTitle">Let me show you around!</h2><p data-copy="tourIntro">I'm Gatik, your guide. Tap each stop.</p></div>
-        <div class="paper-panel">
-          <div class="gatik-layout" style="margin-bottom:16px"><div class="gatik-art"><img src="public/assets/photos/gatik.jpg" data-fallback="public/assets/illustrations/stitched-mascots.jpg" alt="Gatik, the two-and-a-half-year-old elder brother"></div>
-          <div class="gatik-note"><span class="stamp" data-copy="stamp">BIG BROTHER</span><p data-copy="tourGatik">Two and a half years old, and already the proudest guide in the house.</p></div></div>
-          <button class="tour-stop" data-stop="0"><span class="ticon">🛏</span><span><span class="tlabel" data-copy="stop0">Her Corner</span><span class="tbody" data-copy="stop0t">This is where she sleeps, wrapped soft and warm. I check on her every single morning.</span></span></button>
-          <button class="tour-stop" data-stop="1"><span class="ticon">🧸</span><span><span class="tlabel" data-copy="stop1">My Toys, Now Ours</span><span class="tbody" data-copy="stop1t">I picked my softest teddy for her. Sharing is my new superpower.</span></span></button>
-          <button class="tour-stop" data-stop="2"><span class="ticon">🌧</span><span><span class="tlabel" data-copy="stop2">Monsoon Window</span><span class="tbody" data-copy="stop2t">When it rains, we will sit here together and count the drops.</span></span></button>
-          <div class="tour-cta"><button class="secondary" data-scroll="gift" data-copy="giftNext">Bring her a gift</button></div>
-        </div>
-      </section>
+<!-- FILM -->
+<section class="filmwrap" id="filmwrap" hidden>
+  <video id="film" playsinline preload="auto" poster="public/assets/illustrations/floral-hero.jpg"><source src="public/assets/video/opening-film.mp4" type="video/mp4"></video>
+  <button class="film-skip" id="filmSkip" data-copy="filmSkip">Skip the film →</button>
+</section>
 
-      <!-- CHAPTER THREE · THE GIFT -->
-      <section class="chapter story page" id="gift">
-        <div class="chapter-card"><span class="kicker" data-copy="ch3card">Chapter Three · A gift for her</span></div>
-        <div class="section-heading"><h2 data-copy="giftTitle">Bring her a gift.</h2><p data-copy="giftIntro">Pick something small to leave in her room. It will stay there, always.</p></div>
-        <div class="paper-panel">
-          <div class="gift-grid">
-            <button class="gift" data-gift="star"><span class="gicon">⭐</span><span data-copy="gift0">A star, for wonder</span></button>
-            <button class="gift" data-gift="feather"><span class="gicon">🪶</span><span data-copy="gift1">A feather, for gentleness</span></button>
-            <button class="gift" data-gift="seed"><span class="gicon">🌱</span><span data-copy="gift2">A seed, for growing</span></button>
-          </div>
-          <div class="nursery" id="nursery"><img src="public/assets/illustrations/pram-meadow.jpg" alt="Her nursery room illustration"><span class="placed" id="placedGift" hidden></span></div>
-          <p class="gift-note" id="giftNote"></p>
-          <div style="text-align:center;margin-top:10px"><button class="ghost" id="giftAgain" data-copy="giftChange" hidden>choose again</button></div>
-          <div style="text-align:center;margin-top:14px"><button class="secondary" data-scroll="reel" data-copy="reelNext">See the family welcome</button></div>
-        </div>
-      </section>
+<main id="journey" hidden>
+  <!-- CHAPTER 1 · SEPTEMBER 29 -->
+  <section class="scene" id="ch1" style="background:#2b1e2e">
+    <div class="scene-bg" style="background-image:url('public/assets/illustrations/floral-hero.jpg')"></div><div class="scene-scrim"></div>
+    <div class="scene-body reveal">
+      <span class="kicker" data-copy="ch1card">Chapter One · The morning she arrived</span>
+      <h2 data-copy="ch1title">September <em>29.</em></h2>
+      <p class="lede" data-copy="ch1lede">She came softly, the way morning light comes through a window — all at once, and yet so gently you almost miss the moment everything changes.</p>
+      <div class="narr-row"><button class="narr-btn" data-narr="ch1" data-copy="narrBtn">▶ Hear it told</button></div>
+      <div class="card identity">
+        <h3 data-copy="idTitle">Before we wander further…</h3>
+        <p data-copy="idLine">Tell her who came to visit.</p>
+        <label for="vname" data-copy="idName">Your name</label>
+        <input id="vname" type="text" autocomplete="name" maxlength="40" data-ph="idNamePh" placeholder="Your name">
+        <label data-copy="idRel">Your relation to her</label>
+        <div class="id-row"><span data-copy="idHer">her</span><input id="vrel" type="text" maxlength="30" data-ph="idRelPh" placeholder="mamu, aunt…"></div>
+      </div>
+      <div class="cta-row"><button class="btn-primary" data-scroll="ch2" data-copy="next1">Meet her big brother</button></div>
+    </div>
+  </section>
 
-      <!-- CHAPTER FOUR · FAMILY REEL -->
-      <section class="chapter reel page" id="reel">
-        <div class="chapter-card"><span class="kicker" data-copy="ch4card">Chapter Four · The family gathers</span></div>
-        <div class="section-heading"><h2 data-copy="reelTitle">A room full of welcome.</h2><p data-copy="reelIntro">Her first days were filled with familiar voices, happy faces, and people eager to meet her.</p></div>
-        <div class="reel-window"><video id="reelVideo" muted playsinline loop poster="public/assets/illustrations/floral-hero.jpg"><source src="public/assets/video/welcome-video-01.mp4" type="video/mp4"></video>
-          <div class="reel-copy"><h3 id="reelCaption">Everyone came to say hello.</h3><p data-copy="reelHint">Tap the bars to move through the family album.</p>
-          <div class="reel-dots" aria-label="Family video selection"><button class="active" data-video="1" aria-label="Family video 1"></button><button data-video="2" aria-label="Family video 2"></button><button data-video="3" aria-label="Family video 3"></button><button data-video="4" aria-label="Family video 4"></button><button data-video="5" aria-label="Family video 5"></button></div></div>
-        </div>
-        <div style="margin-top:18px"><button class="secondary" data-scroll="wish" data-copy="wishesNext">Leave a wish for her</button></div>
-      </section>
+  <!-- CHAPTER 2 · GATIK'S TOUR -->
+  <section class="scene" id="ch2" style="background:#33233a">
+    <div class="scene-bg" style="background-image:url('public/assets/illustrations/pram-meadow.jpg')"></div><div class="scene-scrim"></div>
+    <div class="scene-body reveal">
+      <span class="kicker" data-copy="ch2card">Chapter Two · Gatik's tour</span>
+      <h2 data-copy="ch2title">Let me <em>show you</em> around!</h2>
+      <p class="lede" data-copy="ch2lede">I'm Gatik, your guide — two and a half years old, and entirely proud of it. Tap each stop.</p>
+      <div class="narr-row"><button class="narr-btn" data-narr="ch2" data-copy="narrBtn">▶ Hear it told</button></div>
+      <button class="tour-stop" data-stop="0"><span class="ticon">🛏</span><span><span class="tlabel" data-copy="stop0">Her Corner</span><span class="tbody" data-copy="stop0t">This is where she sleeps, wrapped soft and warm. I check on her every single morning.</span></span></button>
+      <button class="tour-stop" data-stop="1"><span class="ticon">🧸</span><span><span class="tlabel" data-copy="stop1">My Toys, Now Ours</span><span class="tbody" data-copy="stop1t">I picked my softest teddy for her. Sharing is my new superpower.</span></span></button>
+      <button class="tour-stop" data-stop="2"><span class="ticon">🌧</span><span><span class="tlabel" data-copy="stop2">Monsoon Window</span><span class="tbody" data-copy="stop2t">When it rains, we will sit here together and count the drops.</span></span></button>
+      <div class="cta-row"><button class="btn-primary" data-scroll="ch3" data-copy="next2">Bring her a gift</button></div>
+    </div>
+  </section>
 
-      <!-- CHAPTER FIVE · TIME CAPSULE -->
-      <section class="chapter story page" id="wish">
-        <div class="chapter-card"><span class="kicker" data-copy="ch5card">Chapter Five · The time capsule</span></div>
-        <div class="section-heading"><h2 data-copy="wishTitle">Leave a wish for her future.</h2><p data-copy="wishIntro">Write something she can read when she's older. It will be sealed until her first birthday.</p></div>
-        <div class="paper-panel">
-          <div class="wishform" id="wishForm">
-            <textarea id="wishText" maxlength="500" data-ph="wishPh" placeholder="I wish for you…"></textarea>
-            <div class="from-row"><span data-copy="fromLabel">From</span><input id="wishName" type="text" maxlength="40" data-ph="idNamePh" placeholder="Your name"><span data-copy="idHer">her</span><input id="wishRel" type="text" maxlength="30" data-ph="idRelPh" placeholder="mamu, aunt…"></div>
-            <div style="text-align:center"><button class="primary" id="sealBtn" data-copy="sealBtn">Seal it with love</button></div>
-          </div>
-          <div class="sealed" id="sealedBox">
-            <div class="wax">♥</div>
-            <h3 data-copy="sealedTitle">Sealed with love.</h3>
-            <p data-copy="sealedMsg">It will open on 29 September 2027.</p>
-            <div class="countdown" id="countdown"></div>
-            <div class="seal-actions">
-              <button class="secondary" id="waShare" data-copy="shareWa">Share on WhatsApp</button>
-              <button class="ghost" id="writeAnother" data-copy="writeAnother">write another</button>
-            </div>
-          </div>
-          <div class="mine" id="mineBox" hidden><h4 data-copy="yourWishes">Wishes you've sealed</h4><div id="mineList"></div></div>
-          <div style="text-align:center;margin-top:16px"><button class="secondary" data-scroll="gallery" data-copy="galNext">See little moments</button></div>
-        </div>
-      </section>
+  <!-- CHAPTER 3 · THE GIFT -->
+  <section class="scene" id="ch3" style="background:#3a2440">
+    <div class="scene-bg" style="background-image:url('public/assets/illustrations/floral-hero.jpg')"></div><div class="scene-scrim"></div>
+    <div class="scene-body reveal">
+      <span class="kicker" data-copy="ch3card">Chapter Three · A gift for her</span>
+      <h2 data-copy="ch3title">Bring her <em>a gift.</em></h2>
+      <p class="lede" data-copy="ch3lede">Pick something small to leave in her room. It will stay there, always.</p>
+      <div class="narr-row"><button class="narr-btn" data-narr="ch3" data-copy="narrBtn">▶ Hear it told</button></div>
+      <div class="gift-grid">
+        <button class="gift" data-gift="star"><span class="gicon">⭐</span><span data-copy="gift0">A star, for wonder</span></button>
+        <button class="gift" data-gift="feather"><span class="gicon">🪶</span><span data-copy="gift1">A feather, for gentleness</span></button>
+        <button class="gift" data-gift="seed"><span class="gicon">🌱</span><span data-copy="gift2">A seed, for growing</span></button>
+      </div>
+      <div class="nursery"><img src="public/assets/illustrations/pram-meadow.jpg" alt="Her nursery illustration"><span class="placed" id="placedGift" hidden></span></div>
+      <p class="gift-note" id="giftNote"></p>
+      <div class="cta-row"><button class="btn-ghost" id="giftAgain" data-copy="giftChange" hidden>choose again</button><button class="btn-primary" data-scroll="ch4" data-copy="next3">See the family gather</button></div>
+    </div>
+  </section>
 
-      <!-- GALLERY -->
-      <!-- PHOTOS: to add real photos, drop files into public/assets/photos/ (baby-01.jpg … gatik.jpg)
-           or set DRIVE_IDS below in the script to Google Drive file IDs shared as "anyone with the link". -->
-      <section class="chapter story page" id="gallery">
-        <div class="chapter-card"><span class="kicker" data-copy="galCard">Little moments</span></div>
-        <div class="section-heading"><h2 data-copy="galTitle">A growing gallery.</h2><p data-copy="galIntro">Photos are on their way — the family is gathering the best ones from every phone.</p></div>
-        <div class="paper-panel">
-          <div class="gallery-wall" id="galleryWall">
-            <figure class="polaroid"><img src="public/assets/illustrations/illustrated-baby.jpg" alt="Illustrated placeholder"><span class="soon" data-copy="galSoon">more photos soon</span><figcaption data-copy="galCap0">her first days</figcaption></figure>
-            <figure class="polaroid"><img src="public/assets/illustrations/family-garden.jpg" alt="Illustrated placeholder"><span class="soon" data-copy="galSoon">more photos soon</span><figcaption data-copy="galCap1">the whole family</figcaption></figure>
-            <figure class="polaroid"><img src="public/assets/illustrations/pram-mobile.jpg" alt="Illustrated placeholder"><span class="soon" data-copy="galSoon">more photos soon</span><figcaption data-copy="galCap2">out and about</figcaption></figure>
-            <figure class="polaroid"><img src="public/assets/illustrations/floral-hero.jpg" alt="Illustrated placeholder"><span class="soon" data-copy="galSoon">more photos soon</span><figcaption data-copy="galCap3">blooming</figcaption></figure>
-          </div>
-        </div>
-        <div style="text-align:center;margin-top:18px"><button class="secondary" data-scroll="final" data-copy="finalNext">Keep her close</button></div>
-      </section>
+  <!-- CHAPTER 4 · FAMILY REEL -->
+  <section class="scene" id="ch4" style="background:#2b1e2e">
+    <div class="scene-bg" style="background-image:url('public/assets/illustrations/family-garden.jpg')"></div><div class="scene-scrim"></div>
+    <div class="scene-body reveal">
+      <span class="kicker" data-copy="ch4card">Chapter Four · The family gathers</span>
+      <h2 data-copy="ch4title">A room full of <em>welcome.</em></h2>
+      <p class="lede" data-copy="ch4lede">Her first days were filled with familiar voices, happy faces, and people eager to meet her.</p>
+      <div class="narr-row"><button class="narr-btn" data-narr="ch4" data-copy="narrBtn">▶ Hear it told</button></div>
+      <div class="reel-window"><video id="reelVideo" muted playsinline loop poster="public/assets/illustrations/floral-hero.jpg"><source src="public/assets/video/welcome-video-01.mp4" type="video/mp4"></video></div>
+      <div class="reel-cap" id="reelCaption">Everyone came to say hello.</div>
+      <div class="reel-dots" aria-label="Family video selection"><button class="active" data-video="1" aria-label="1"></button><button data-video="2" aria-label="2"></button><button data-video="3" aria-label="3"></button><button data-video="4" aria-label="4"></button><button data-video="5" aria-label="5"></button></div>
+      <div class="cta-row"><button class="btn-primary" data-scroll="ch5" data-copy="next4">Leave a wish for her</button></div>
+    </div>
+  </section>
 
-      <!-- CLOSING -->
-      <section class="chapter final page" id="final">
-        <div class="chapter-card"><span class="kicker" data-copy="ch6card">The story continues…</span></div>
-        <figure class="final-frame"><img src="public/assets/photos/family-arrival-03.jpg" data-fallback="public/assets/illustrations/family-garden.jpg" alt="The family gathered together to welcome the baby"></figure>
-        <h2 data-copy="finalTitle">Welcome to the family,<br>little one.</h2>
-        <p data-copy="finalBody">Your story has just begun, and all of us are so happy to be part of it.</p>
-        <div class="lanterns" id="lanterns"></div>
-        <p class="lantern-hint" id="lanternHint" data-copy="lanternHint" hidden>Tap a lantern to read a wish.</p>
-        <div><button class="primary" id="playAgain" data-copy="again">Read it again</button></div>
-        <div class="signature" data-copy="signature">made with love for Gatik's younger sister</div>
-      </section>
-    </main>
-    <div class="audio-bar"><span id="audioStatus">♪ her lullaby</span><div class="abtns"><button id="lullabyBtn" aria-pressed="false" data-copy="lullabyOff">♪ off</button><button id="audioButton" aria-pressed="false" data-copy="listen">▶ Listen</button></div></div>
-  </div>
-  <audio id="lullaby" src="public/assets/audio/lullaby.mp3" loop preload="auto"></audio>
-  <script>
-    var BABY = {en: "Gatik's younger sister", hi: 'गतिक की छोटी बहन'};
-    var CAPSULE_DATE = new Date(2027, 8, 29);
-    var DRIVE_IDS = []; // Google Drive file IDs ("anyone with the link") for the gallery; empty = illustrated placeholders
-    var copy = {
-      en: {wordmark:'Welcome to the family',heroCaption:'the newest little love',arrivalCard:'A story in six chapters',date:'29 September · a new beginning',heroTitle:'Someone tiny<br><em>has arrived.</em>',heroIntro:"A beautiful baby girl has joined the family — Gatik's younger sister. This is her story, and you're part of it.",idTitle:'Before we begin…',idLine:'Tell her who came to visit.',idName:'Your name',idHer:'her',idRel:'Your relation to her',idNamePh:'Your name',idRelPh:'mamu, aunt…',beginSound:'♪ Begin with sound',beginQuiet:'or continue quietly →',ch1card:'Chapter One · The morning she arrived',meetTitle:"Meet Gatik's younger sister.",meetIntro:'She is tiny, peaceful, and already surrounded by familiar voices and warm arms.',cap1:'hello, beautiful',cap2:'already so loved',meetBody:'Her first chapter is full of soft blankets, sleepy faces, flowers, and the kind of love that gathers everyone close.',next:"Take Gatik's tour",ch2card:"Chapter Two · Gatik's tour",tourTitle:'Let me show you around!',tourIntro:"I'm Gatik, your guide. Tap each stop.",stamp:'BIG BROTHER',tourGatik:'Two and a half years old, and already the proudest guide in the house.',stop0:'Her Corner',stop0t:'This is where she sleeps, wrapped soft and warm. I check on her every single morning.',stop1:'My Toys, Now Ours',stop1t:'I picked my softest teddy for her. Sharing is my new superpower.',stop2:'Monsoon Window',stop2t:'When it rains, we will sit here together and count the drops.',giftNext:'Bring her a gift',ch3card:'Chapter Three · A gift for her',giftTitle:'Bring her a gift.',giftIntro:'Pick something small to leave in her room. It will stay there, always.',gift0:'A star, for wonder',gift1:'A feather, for gentleness',gift2:'A seed, for growing',giftPlaced:'Placed with love in her room.',giftChange:'choose again',reelNext:'See the family welcome',ch4card:'Chapter Four · The family gathers',reelTitle:'A room full of welcome.',reelIntro:'Her first days were filled with familiar voices, happy faces, and people eager to meet her.',reelHint:'Tap the bars to move through the family album.',wishesNext:'Leave a wish for her',ch5card:'Chapter Five · The time capsule',wishTitle:'Leave a wish for her future.',wishIntro:"Write something she can read when she's older. It will be sealed until her first birthday.",wishPh:'I wish for you…',fromLabel:'From',sealBtn:'Seal it with love',sealedTitle:'Sealed with love.',sealedMsg:'It will open on 29 September 2027.',shareWa:'Share on WhatsApp',writeAnother:'write another',yourWishes:"Wishes you've sealed",galNext:'See little moments',galCard:'Little moments',galTitle:'A growing gallery.',galIntro:'Photos are on their way — the family is gathering the best ones from every phone.',galSoon:'more photos soon',galCap0:'her first days',galCap1:'the whole family',galCap2:'out and about',galCap3:'blooming',finalNext:'Keep her close',ch6card:'The story continues…',finalTitle:'Welcome to the family,<br>little one.',finalBody:'Your story has just begun, and all of us are so happy to be part of it.',lanternHint:'Tap a lantern to read a wish.',again:'Read it again',signature:"made with love for Gatik's younger sister",listen:'▶ Listen',pause:'❚❚ Pause',lullabyOn:'♪ on',lullabyOff:'♪ off',lullabyLabel:'♪ her lullaby'},
-      hi: {wordmark:'परिवार में स्वागत है',heroCaption:'सबसे नया नन्हा प्यार',arrivalCard:'छह अध्यायों की कहानी',date:'२९ सितम्बर · एक नई शुरुआत',heroTitle:'कोई नन्हा-सा<br><em>आया है।</em>',heroIntro:'परिवार में एक प्यारी-सी बेटी आई है — गतिक की छोटी बहन। यह उसकी कहानी है, और आप इसका हिस्सा हैं।',idTitle:'शुरू करने से पहले…',idLine:'उसे बताइए, मिलने कौन आया है।',idName:'आपका नाम',idHer:'उसकी',idRel:'उससे आपका रिश्ता',idNamePh:'आपका नाम',idRelPh:'मामू, बुआ…',beginSound:'♪ आवाज़ के साथ शुरू करें',beginQuiet:'या चुपचाप आगे बढ़ें →',ch1card:'पहला अध्याय · वो सुबह जब वो आई',meetTitle:'गतिक की छोटी बहन से मिलिए।',meetIntro:'वह नन्ही-सी, प्यारी-सी है और परिचित आवाज़ों व गर्मजोशी भरी बाँहों से घिरी हुई है।',cap1:'नमस्ते, सुंदरी',cap2:'पहले से ही बहुत प्यारी',meetBody:'उसकी कहानी की शुरुआत नरम कंबलों, मासूम नींद, फूलों और उस प्यार से हो रही है जो सबको पास ले आता है।',next:'गतिक की सैर करें',ch2card:'दूसरा अध्याय · गतिक की सैर',tourTitle:'आओ, मैं तुम्हें घुमाता हूँ!',tourIntro:'मैं गतिक हूँ, तुम्हारा गाइड। हर ठिकाने पर टैप करो।',stamp:'बड़े भाई',tourGatik:'ढाई साल का हूँ, और घर का सबसे गर्वित गाइड भी।',stop0:'उसका कोना',stop0t:'यहीं वो सोती है, नरम और गर्म लिपटी हुई। मैं हर सुबह उसे देखता हूँ।',stop1:'मेरे खिलौने, अब हमारे',stop1t:'मैंने उसके लिए अपना सबसे नरम टेडी चुना है। बाँटना अब मेरी नई सुपरपावर है।',stop2:'बारिश वाली खिड़की',stop2t:'जब बारिश होगी, हम यहाँ साथ बैठकर बूँदें गिनेंगे।',giftNext:'उसके लिए तोहफ़ा लाइए',ch3card:'तीसरा अध्याय · उसके लिए एक तोहफ़ा',giftTitle:'उसके लिए एक तोहफ़ा लाइए।',giftIntro:'उसके कमरे के लिए कुछ छोटा-सा चुनिए। वो हमेशा वहीं रहेगा।',gift0:'एक तारा, हैरानी के लिए',gift1:'एक पंख, नर्मी के लिए',gift2:'एक बीज, बढ़ने के लिए',giftPlaced:'प्यार से उसके कमरे में रख दिया गया।',giftChange:'फिर से चुनें',reelNext:'परिवार का स्वागत देखिए',ch4card:'चौथा अध्याय · परिवार जुटा है',reelTitle:'स्वागत से भरा एक कमरा।',reelIntro:'उसके पहले दिन परिचित आवाज़ों, मुस्कुराते चेहरों और उससे मिलने की खुशी से भरे रहे।',reelHint:'परिवार की यादों में आगे बढ़ने के लिए पट्टियों पर टैप करें।',wishesNext:'उसके लिए शुभकामना छोड़िए',ch5card:'पाँचवाँ अध्याय · टाइम कैप्सूल',wishTitle:'उसके भविष्य के लिए एक शुभकामना छोड़िए।',wishIntro:'कुछ ऐसा लिखिए जो वो बड़ी होकर पढ़ सके। ये उसके पहले जन्मदिन तक सील रहेगा।',wishPh:'मैं तुम्हारे लिए चाहता हूँ…',fromLabel:'प्रेषक',sealBtn:'प्यार से सील करें',sealedTitle:'प्यार से सील हो गया।',sealedMsg:'यह २९ सितम्बर २०२७ को खुलेगा।',shareWa:'व्हाट्सऐप पर साझा करें',writeAnother:'एक और लिखें',yourWishes:'आपकी सील की हुई शुभकामनाएँ',galNext:'नन्ही यादें देखिए',galCard:'नन्ही यादें',galTitle:'बढ़ता हुआ संग्रह।',galIntro:'तस्वीरें आ रही हैं — परिवार हर फ़ोन से सबसे अच्छी तस्वीरें जुटा रहा है।',galSoon:'और तस्वीरें जल्द',galCap0:'उसके पहले दिन',galCap1:'पूरा परिवार',galCap2:'सैर-सपाटा',galCap3:'खिलती हुई',finalNext:'उसे दिल के पास रखें',ch6card:'कहानी जारी है…',finalTitle:'परिवार में स्वागत है,<br>नन्ही बच्ची।',finalBody:'तुम्हारी कहानी अभी शुरू हुई है और हम सब इसका हिस्सा बनकर बहुत खुश हैं।',lanternHint:'शुभकामना पढ़ने के लिए लालटेन पर टैप करें।',again:'फिर से पढ़ें',signature:'प्यार के साथ, गतिक की छोटी बहन के लिए',listen:'▶ सुनें',pause:'❚❚ रोकें',lullabyOn:'♪ चालू',lullabyOff:'♪ बंद',lullabyLabel:'♪ उसकी लोरी'}
-    };
-    var videoCaptions = {en:['Everyone came to say hello.','A little celebration for a little girl.','So many arms ready to hold her.','The family grows a little bigger.','A tiny new beginning.'],hi:['सब उससे मिलने आए।','एक नन्ही बच्ची के लिए छोटी-सी खुशी।','उसे थामने के लिए कितनी सारी बाँहें।','परिवार थोड़ा और बड़ा हो गया।','एक नन्ही-सी नई शुरुआत।']};
-    var giftIcons = {star:'⭐', feather:'🪶', seed:'🌱'};
-    var lang = 'en', speaking = false, lullabyOn = false;
-    var $ = function(s){ return document.querySelector(s); };
-    var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
-    function store(){ try { return JSON.parse(localStorage.getItem('wtf_v1') || '{}'); } catch(e){ return {}; } }
-    function save(patch){ var s = store(); for (var k in patch) s[k] = patch[k]; try { localStorage.setItem('wtf_v1', JSON.stringify(s)); } catch(e){} }
-    function setLanguage(next){
-      lang = next; document.documentElement.lang = next;
-      $$('[data-lang]').forEach(function(b){ b.classList.toggle('active', b.dataset.lang === next); });
-      var d = copy[next];
-      $$('[data-copy]').forEach(function(el){ var k = el.getAttribute('data-copy'); if (d[k] != null) el.innerHTML = d[k]; });
-      $$('[data-ph]').forEach(function(el){ var k = el.getAttribute('data-ph'); if (d[k] != null) el.placeholder = d[k]; });
-      $('#audioStatus').textContent = d.lullabyLabel;
-      $('#lullabyBtn').textContent = lullabyOn ? d.lullabyOn : d.lullabyOff;
-      $('#audioButton').textContent = speaking ? d.pause : d.listen;
-      renderCountdown(); renderMine(); renderLanterns();
-      if (speaking){ try{ speechSynthesis.cancel(); }catch(e){} speaking = false; $('#audioButton').setAttribute('aria-pressed','false'); }
-    }
-    $$('[data-lang]').forEach(function(b){ b.addEventListener('click', function(){ setLanguage(b.dataset.lang); }); });
-    $$('[data-scroll]').forEach(function(b){ b.addEventListener('click', function(){ var t = document.getElementById(b.getAttribute('data-scroll')); if (t) t.scrollIntoView({behavior:'smooth'}); }); });
-    $$('img[data-fallback]').forEach(function(img){ img.addEventListener('error', function(){ if (img.src.endsWith(img.getAttribute('data-fallback'))) return; img.src = img.getAttribute('data-fallback'); }); });
-    // identity
-    (function(){ var s = store(); if (s.name) $('#vname').value = s.name; if (s.rel) $('#vrel').value = s.rel; })();
-    function readIdentity(){ var n = $('#vname').value.trim(), r = $('#vrel').value.trim(); save({name:n, rel:r}); return {name:n, rel:r}; }
-    // lullaby
-    var lull = $('#lullaby');
-    function setLullaby(on){ lullabyOn = on; $('#lullabyBtn').setAttribute('aria-pressed', on ? 'true' : 'false'); $('#lullabyBtn').textContent = on ? copy[lang].lullabyOn : copy[lang].lullabyOff; if (on){ lull.volume = .5; lull.play().catch(function(){}); } else { lull.pause(); } }
-    $('#lullabyBtn').addEventListener('click', function(){ setLullaby(!lullabyOn); });
-    $('#beginSound').addEventListener('click', function(){ readIdentity(); setLullaby(true); document.getElementById('story').scrollIntoView({behavior:'smooth'}); });
-    $('#beginQuiet').addEventListener('click', function(){ readIdentity(); document.getElementById('story').scrollIntoView({behavior:'smooth'}); });
-    // video reel
-    var video = $('#reelVideo');
-    $$('[data-video]').forEach(function(btn){ btn.addEventListener('click', function(){ var n = btn.getAttribute('data-video'); video.src = 'public/assets/video/welcome-video-0' + n + '.mp4'; video.play().catch(function(){}); $$('[data-video]').forEach(function(x){ x.classList.toggle('active', x === btn); }); var caps = videoCaptions[lang]; $('#reelCaption').textContent = caps[Number(n)-1] || caps[0]; }); });
-    // tour stops
-    $$('.tour-stop').forEach(function(btn){ btn.addEventListener('click', function(){ btn.classList.toggle('open'); }); });
-    // gift
-    var placed = $('#placedGift'), giftNote = $('#giftNote'), giftAgain = $('#giftAgain');
-    function renderGift(){ var g = store().gift; $$('.gift').forEach(function(b){ b.classList.toggle('picked', b.getAttribute('data-gift') === g); }); if (g){ placed.hidden = false; placed.textContent = giftIcons[g]; placed.className = 'placed ' + g; giftNote.textContent = copy[lang].giftPlaced; giftAgain.hidden = false; } else { placed.hidden = true; giftNote.textContent = ''; giftAgain.hidden = true; } }
-    $$('.gift').forEach(function(btn){ btn.addEventListener('click', function(){ save({gift: btn.getAttribute('data-gift')}); renderGift(); }); });
-    giftAgain.addEventListener('click', function(){ save({gift: null}); renderGift(); });
-    // wishes / time capsule
-    function getWishes(){ return store().wishes || []; }
-    function renderCountdown(){ var ms = CAPSULE_DATE - new Date(); var d = Math.max(0, Math.ceil(ms / 86400000)); $('#countdown').textContent = lang === 'hi' ? ('कैप्सूल खुलने में ' + d + ' दिन बचे हैं') : (d + ' days until the capsule opens'); }
-    function renderMine(){ var w = getWishes(); var box = $('#mineBox'), list = $('#mineList'); if (!w.length){ box.hidden = true; return; } box.hidden = false; list.innerHTML = ''; w.slice().reverse().forEach(function(it){ var div = document.createElement('div'); div.className = 'wishchip'; var sm = document.createElement('small'); div.textContent = it.text; sm.textContent = '— ' + it.from + (it.rel ? ', her ' + it.rel : ''); div.appendChild(sm); list.appendChild(div); }); }
-    function renderLanterns(){ var w = getWishes(); var box = $('#lanterns'); box.innerHTML = ''; $('#lanternHint').hidden = !w.length; w.forEach(function(it, i){ var b = document.createElement('button'); b.className = 'lantern'; b.style.animationDelay = (i * .7) + 's'; b.innerHTML = '🏮<small>' + (it.from ? it.from.charAt(0).toUpperCase() : '♥') + '</small>'; b.setAttribute('aria-label', 'Read wish'); b.addEventListener('click', function(){ alert('“' + it.text + '”\n— ' + it.from + (it.rel ? ', her ' + it.rel : '')); }); box.appendChild(b); }); }
-    function prefillWish(){ var s = store(); if (s.name && !$('#wishName').value) $('#wishName').value = s.name; if (s.rel && !$('#wishRel').value) $('#wishRel').value = s.rel; }
-    $('#sealBtn').addEventListener('click', function(){
-      var text = $('#wishText').value.trim(); if (!text){ $('#wishText').focus(); return; }
-      var name = $('#wishName').value.trim() || (lang === 'hi' ? 'कोई अपना' : 'someone who loves her');
-      var rel = $('#wishRel').value.trim();
-      var w = getWishes(); w.push({text:text, from:name, rel:rel, ts:Date.now()}); save({wishes:w, name:$('#wishName').value.trim(), rel:rel});
-      $('#wishForm').style.display = 'none'; $('#sealedBox').classList.add('show'); renderCountdown(); renderMine(); renderLanterns();
-      window._lastWish = {text:text, from:name, rel:rel};
-    });
-    $('#writeAnother').addEventListener('click', function(){ $('#wishText').value = ''; $('#sealedBox').classList.remove('show'); $('#wishForm').style.display = ''; prefillWish(); });
-    $('#waShare').addEventListener('click', function(){ var lw = window._lastWish; if (!lw) return; var msg = '"' + lw.text + '" — ' + lw.from + (lw.rel ? ' (her ' + lw.rel + ')' : '') + ', for ' + BABY[lang]; window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank'); });
-    // gallery from Drive IDs (optional)
-    (function(){ if (!DRIVE_IDS.length) return; var wall = $('#galleryWall'); wall.innerHTML = ''; DRIVE_IDS.forEach(function(id, i){ var f = document.createElement('figure'); f.className = 'polaroid'; var img = document.createElement('img'); img.src = 'https://drive.google.com/thumbnail?id=' + id + '&sz=w1000'; img.alt = 'Family photo'; img.loading = 'lazy'; var c = document.createElement('figcaption'); c.textContent = ''; f.appendChild(img); f.appendChild(c); wall.appendChild(f); }); })();
-    // narration
-    function narration(){ var d = copy[lang]; var parts = [d.heroIntro, d.meetBody, d.tourGatik, d.giftIntro, d.wishIntro, d.finalBody]; return parts.join(' '); }
-    $('#audioButton').addEventListener('click', function(){
-      if (!('speechSynthesis' in window)) return;
-      if (speaking){ try{ speechSynthesis.cancel(); }catch(e){} speaking = false; $('#audioButton').setAttribute('aria-pressed','false'); $('#audioButton').textContent = copy[lang].listen; return; }
-      var u = new SpeechSynthesisUtterance(narration()); u.lang = lang === 'hi' ? 'hi-IN' : 'en-IN'; u.rate = .92; u.pitch = 1.03;
-      u.onend = function(){ speaking = false; $('#audioButton').setAttribute('aria-pressed','false'); $('#audioButton').textContent = copy[lang].listen; };
-      try{ speechSynthesis.cancel(); speechSynthesis.speak(u); speaking = true; $('#audioButton').setAttribute('aria-pressed','true'); $('#audioButton').textContent = copy[lang].pause; }catch(e){}
-    });
-    $('#playAgain').addEventListener('click', function(){ $('#start').scrollIntoView({behavior:'smooth'}); });
-    // init
-    prefillWish(); renderGift(); renderCountdown(); renderMine(); renderLanterns(); setLanguage('en');
-  </script>
+  <!-- CHAPTER 5 · TIME CAPSULE -->
+  <section class="scene" id="ch5" style="background:#33233a">
+    <div class="scene-bg" style="background-image:url('public/assets/illustrations/pram-mobile.jpg')"></div><div class="scene-scrim"></div>
+    <div class="scene-body reveal">
+      <span class="kicker" data-copy="ch5card">Chapter Five · The time capsule</span>
+      <h2 data-copy="ch5title">Leave a wish for <em>her future.</em></h2>
+      <p class="lede" data-copy="ch5lede">Write something she can read when she's older. It will be sealed until her first birthday.</p>
+      <div class="narr-row"><button class="narr-btn" data-narr="ch5" data-copy="narrBtn">▶ Hear it told</button></div>
+      <div class="card">
+        <div class="wishform" id="wishForm">
+          <textarea id="wishText" maxlength="500" data-ph="wishPh" placeholder="I wish for you…"></textarea>
+          <div class="from-row"><span data-copy="fromLabel">From</span><input id="wishName" type="text" maxlength="40" data-ph="idNamePh" placeholder="Your name"><span data-copy="idHer">her</span><input id="wishRel" type="text" maxlength="30" data-ph="idRelPh" placeholder="mamu, aunt…"></div>
+          <div style="text-align:center"><button class="btn-primary" id="sealBtn" data-copy="sealBtn" style="border:0;border-radius:10px;padding:14px 22px;background:linear-gradient(180deg,#e88a93,#c9505d);color:#fff;font-weight:700;box-shadow:0 5px 0 #93363f">Seal it with love</button></div>
+        </div>
+        <div class="sealed" id="sealedBox">
+          <div class="wax">♥</div>
+          <h3 data-copy="sealedTitle">Sealed with love.</h3>
+          <p data-copy="sealedMsg">It will open on 29 September 2027.</p>
+          <div class="countdown" id="countdown"></div>
+          <div class="seal-actions"><button class="btn-light" id="waShare" data-copy="shareWa">Share on WhatsApp</button><button class="btn-ghost" id="writeAnother" data-copy="writeAnother" style="color:#997d85">write another</button></div>
+        </div>
+        <div class="mine" id="mineBox" hidden><h4 data-copy="yourWishes">Wishes you've sealed</h4><div id="mineList"></div></div>
+      </div>
+      <div class="cta-row"><button class="btn-primary" data-scroll="ch6" data-copy="next5">See little moments</button></div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 6 · GALLERY -->
+  <section class="scene" id="ch6" style="background:#3a2440">
+    <div class="scene-bg" style="background-image:url('public/assets/illustrations/floral-hero.jpg')"></div><div class="scene-scrim"></div>
+    <div class="scene-body reveal">
+      <span class="kicker" data-copy="ch6card">Little moments</span>
+      <h2 data-copy="ch6title">A <em>growing</em> gallery.</h2>
+      <p class="lede" data-copy="ch6lede">Photos are on their way — the family is gathering the best ones from every phone.</p>
+      <div class="narr-row"><button class="narr-btn" data-narr="ch6" data-copy="narrBtn">▶ Hear it told</button></div>
+      <div class="gallery-wall" id="galleryWall">
+        <figure class="polaroid"><img src="public/assets/illustrations/illustrated-baby.jpg" alt=""><span class="soon" data-copy="galSoon">more photos soon</span><figcaption data-copy="galCap0">her first days</figcaption></figure>
+        <figure class="polaroid"><img src="public/assets/illustrations/family-garden.jpg" alt=""><span class="soon" data-copy="galSoon">more photos soon</span><figcaption data-copy="galCap1">the whole family</figcaption></figure>
+        <figure class="polaroid"><img src="public/assets/illustrations/pram-mobile.jpg" alt=""><span class="soon" data-copy="galSoon">more photos soon</span><figcaption data-copy="galCap2">out and about</figcaption></figure>
+        <figure class="polaroid"><img src="public/assets/illustrations/floral-hero.jpg" alt=""><span class="soon" data-copy="galSoon">more photos soon</span><figcaption data-copy="galCap3">blooming</figcaption></figure>
+      </div>
+      <div class="cta-row"><button class="btn-primary" data-scroll="diary" data-copy="next6">Her story so far</button></div>
+    </div>
+  </section>
+
+  <!-- HER STORY · LIVING DIARY -->
+  <section class="scene" id="diary" style="background:#241722">
+    <div class="scene-scrim" style="background:linear-gradient(180deg,#24172200 10%,#241722ee 60%,#1c121f 100%)"></div>
+    <div class="scene-body reveal">
+      <span class="kicker" data-copy="diaryCard">Her diary · a living book</span>
+      <h2 data-copy="diaryTitle">Her story, <em>year by year.</em></h2>
+      <p class="lede" data-copy="diaryLede">This page never ends. Every birthday, a new chapter is written — until one day, she reads them all herself.</p>
+      <div class="timeline" id="timeline"></div>
+      <div class="tmore" data-copy="diaryMore">More chapters are still being lived…</div>
+      <div class="cta-row"><button class="btn-primary" data-scroll="final" data-copy="next7">Keep her close</button></div>
+    </div>
+  </section>
+</main>
+
+<!-- CLOSING -->
+<section class="closing" id="final" hidden>
+  <span class="moon" id="moon" title="tap">🌙</span>
+  <p class="kicker" data-copy="ch7card">The story continues…</p>
+  <h2 data-copy="finalTitle">Welcome to the <em>family,</em><br>little one.</h2>
+  <p data-copy="finalBody">Your story has just begun, and all of us are so happy to be part of it.</p>
+  <div class="narr-row" style="justify-content:center"><button class="narr-btn" data-narr="ch7" data-copy="narrBtn">▶ Hear it told</button></div>
+  <div class="lanterns" id="lanterns"></div>
+  <p class="lantern-hint" id="lanternHint" data-copy="lanternHint" hidden>Tap a lantern to read a wish.</p>
+  <div><button class="btn-big" id="playAgain" data-copy="again">Read it again</button></div>
+  <div class="egghint" data-copy="eggHint">psst… the moon likes being tapped.</div>
+  <div class="signature" data-copy="signature">made with love for Gatik's younger sister</div>
+</section>
+
+<div class="audio-bar" id="audiobar" hidden><span id="audioStatus">♪ her lullaby</span><div class="abtns"><button id="lullabyBtn" aria-pressed="false">♪ off</button><button id="narrFilmBtn" aria-pressed="false">🎙 film</button></div></div>
+<audio id="lullaby" src="public/assets/audio/lullaby.mp3" loop preload="auto"></audio>
+<audio id="narrPlayer" preload="auto"></audio>
+<script>
+var BABY = {en: "Gatik's younger sister", hi: 'गतिक की छोटी बहन'};
+var CAPSULE_DATE = new Date(2027, 8, 29);
+var copy = {
+en:{wordmark:'Welcome to the family',introKicker:'A living storybook',introTitle:'Every family has a story.<br><em>This is hers.</em>',introLede:"Tap to open the curtains. A short film is about to begin — told like the old storybooks, for Gatik's younger sister.",openBtn:'Open the curtains',skipBtn:'or step straight into the story →',filmSkip:'Skip the film →',ch1card:'Chapter One · The morning she arrived',ch1title:'September <em>29.</em>',ch1lede:'She came softly, the way morning light comes through a window — all at once, and yet so gently you almost miss the moment everything changes.',narrBtn:'▶ Hear it told',idTitle:'Before we wander further…',idLine:'Tell her who came to visit.',idName:'Your name',idHer:'her',idRel:'Your relation to her',idNamePh:'Your name',idRelPh:'mamu, aunt…',next1:'Meet her big brother',ch2card:"Chapter Two · Gatik's tour",ch2title:'Let me <em>show you</em> around!',ch2lede:"I'm Gatik, your guide — two and a half years old, and entirely proud of it. Tap each stop.",stop0:'Her Corner',stop0t:'This is where she sleeps, wrapped soft and warm. I check on her every single morning.',stop1:'My Toys, Now Ours',stop1t:'I picked my softest teddy for her. Sharing is my new superpower.',stop2:'Monsoon Window',stop2t:'When it rains, we will sit here together and count the drops.',next2:'Bring her a gift',ch3card:'Chapter Three · A gift for her',ch3title:'Bring her <em>a gift.</em>',ch3lede:'Pick something small to leave in her room. It will stay there, always.',gift0:'A star, for wonder',gift1:'A feather, for gentleness',gift2:'A seed, for growing',giftPlaced:'Placed with love in her room.',giftChange:'choose again',next3:'See the family gather',ch4card:'Chapter Four · The family gathers',ch4title:'A room full of <em>welcome.</em>',ch4lede:'Her first days were filled with familiar voices, happy faces, and people eager to meet her.',next4:'Leave a wish for her',ch5card:'Chapter Five · The time capsule',ch5title:'Leave a wish for <em>her future.</em>',ch5lede:"Write something she can read when she's older. It will be sealed until her first birthday.",fromLabel:'From',wishPh:'I wish for you…',sealBtn:'Seal it with love',sealedTitle:'Sealed with love.',sealedMsg:'It will open on 29 September 2027.',shareWa:'Share on WhatsApp',writeAnother:'write another',yourWishes:"Wishes you've sealed",next5:'See little moments',ch6card:'Little moments',ch6title:'A <em>growing</em> gallery.',ch6lede:'Photos are on their way — the family is gathering the best ones from every phone.',galSoon:'more photos soon',galCap0:'her first days',galCap1:'the whole family',galCap2:'out and about',galCap3:'blooming',next6:'Her story so far',diaryCard:'Her diary · a living book',diaryTitle:'Her story, <em>year by year.</em>',diaryLede:'This page never ends. Every birthday, a new chapter is written — until one day, she reads them all herself.',diaryMore:'More chapters are still being lived…',next7:'Keep her close',ch7card:'The story continues…',finalTitle:'Welcome to the <em>family,</em><br>little one.',finalBody:'Your story has just begun, and all of us are so happy to be part of it.',lanternHint:'Tap a lantern to read a wish.',again:'Read it again',signature:"made with love for Gatik's younger sister",eggHint:'psst… the moon likes being tapped.',listen:'▶ Listen',pause:'❚❚ Pause'},
+hi:{wordmark:'परिवार में स्वागत है',introKicker:'एक जीवंत कहानी',introTitle:'हर परिवार की एक कहानी होती है।<br><em>यह उसकी है।</em>',introLede:'परदे खोलने के लिए टैप करें। एक छोटी फिल्म शुरू होने वाली है — पुरानी कहानियों की तरह सुनाई गई, गतिक की छोटी बहन के लिए।',openBtn:'परदे खोलिए',skipBtn:'या सीधे कहानी में चलिए →',filmSkip:'फिल्म छोड़ें →',ch1card:'पहला अध्याय · वो सुबह जब वो आई',ch1title:'२९ <em>सितम्बर।</em>',ch1lede:'वो धीरे से आई, जैसे खिड़की से सुबह का उजाला आता है — एक साथ, और फिर भी इतनी नर्मी से कि वो पल कब बदल गया, पता ही न चला।',narrBtn:'▶ सुनिए',idTitle:'आगे बढ़ने से पहले…',idLine:'उसे बताइए, मिलने कौन आया है।',idName:'आपका नाम',idHer:'उसकी',idRel:'उससे आपका रिश्ता',idNamePh:'आपका नाम',idRelPh:'मामू, बुआ…',next1:'उसके बड़े भाई से मिलिए',ch2card:'दूसरा अध्याय · गतिक की सैर',ch2title:'आओ, <em>घुमाता हूँ!</em>',ch2lede:'मैं गतिक हूँ, तुम्हारा गाइड — ढाई साल का, और इस पर पूरा गर्व है। हर ठिकाने पर टैप करो।',stop0:'उसका कोना',stop0t:'यहीं वो सोती है, नरम और गर्म लिपटी हुई। मैं हर सुबह उसे देखता हूँ।',stop1:'मेरे खिलौने, अब हमारे',stop1t:'मैंने उसके लिए अपना सबसे नरम टेडी चुना है। बाँटना अब मेरी नई सुपरपावर है।',stop2:'बारिश वाली खिड़की',stop2t:'जब बारिश होगी, हम यहाँ साथ बैठकर बूँदें गिनेंगे।',next2:'उसके लिए तोहफ़ा लाइए',ch3card:'तीसरा अध्याय · उसके लिए एक तोहफ़ा',ch3title:'उसके लिए <em>तोहफ़ा</em> लाइए।',ch3lede:'उसके कमरे के लिए कुछ छोटा-सा चुनिए। वो हमेशा वहीं रहेगा।',gift0:'एक तारा, हैरानी के लिए',gift1:'एक पंख, नर्मी के लिए',gift2:'एक बीज, बढ़ने के लिए',giftPlaced:'प्यार से उसके कमरे में रख दिया गया।',giftChange:'फिर से चुनें',next3:'परिवार का जमावड़ा देखिए',ch4card:'चौथा अध्याय · परिवार जुटा है',ch4title:'<em>स्वागत</em> से भरा कमरा।',ch4lede:'उसके पहले दिन परिचित आवाज़ों, मुस्कुराते चेहरों और उससे मिलने की खुशी से भरे रहे।',next4:'उसके लिए शुभकामना छोड़िए',ch5card:'पाँचवाँ अध्याय · टाइम कैप्सूल',ch5title:'उसके <em>भविष्य</em> के लिए शुभकामना छोड़िए।',ch5lede:'कुछ ऐसा लिखिए जो वो बड़ी होकर पढ़ सके। ये उसके पहले जन्मदिन तक सील रहेगा।',fromLabel:'प्रेषक',wishPh:'मैं तुम्हारे लिए चाहता हूँ…',sealBtn:'प्यार से सील करें',sealedTitle:'प्यार से सील हो गया।',sealedMsg:'यह २९ सितम्बर २०२७ को खुलेगा।',shareWa:'व्हाट्सऐप पर साझा करें',writeAnother:'एक और लिखें',yourWishes:'आपकी सील की हुई शुभकामनाएँ',next5:'नन्ही यादें देखिए',ch6card:'नन्ही यादें',ch6title:'बढ़ता हुआ <em>संग्रह।</em>',ch6lede:'तस्वीरें आ रही हैं — परिवार हर फ़ोन से सबसे अच्छी तस्वीरें जुटा रहा है।',galSoon:'और तस्वीरें जल्द',galCap0:'उसके पहले दिन',galCap1:'पूरा परिवार',galCap2:'सैर-सपाटा',galCap3:'खिलती हुई',next6:'अब तक उसकी कहानी',diaryCard:'उसकी डायरी · एक जीवंत किताब',diaryTitle:'उसकी कहानी, <em>साल दर साल।</em>',diaryLede:'यह पन्ना कभी खत्म नहीं होता। हर जन्मदिन एक नया अध्याय लिखा जाता है — जब तक एक दिन वो खुद इन्हें पढ़ेगी।',diaryMore:'और अध्याय अभी जिए जा रहे हैं…',next7:'उसे दिल के पास रखें',ch7card:'कहानी जारी है…',finalTitle:'परिवार में <em>स्वागत है,</em><br>नन्ही बच्ची।',finalBody:'तुम्हारी कहानी अभी शुरू हुई है और हम सब इसका हिस्सा बनकर बहुत खुश हैं।',lanternHint:'शुभकामना पढ़ने के लिए लालटेन पर टैप करें।',again:'फिर से पढ़ें',signature:'प्यार के साथ, गतिक की छोटी बहन के लिए',eggHint:'प्स्स्त… चाँद को टैप करना अच्छा लगता है।',listen:'▶ सुनें',pause:'❚❚ रोकें'}
+};
+var lang='en', speaking=false, lullabyOn=false, filmStarted=false;
+var $=function(s){return document.querySelector(s);}, $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s));};
+function store(){try{return JSON.parse(localStorage.getItem('wtf_v2')||'{}');}catch(e){return{};}}
+function save(p){var s=store();for(var k in p)s[k]=p[k];try{localStorage.setItem('wtf_v2',JSON.stringify(s));}catch(e){}}
+/* language */
+function setLanguage(next){lang=next;document.documentElement.lang=next;$$('[data-lang]').forEach(function(b){b.classList.toggle('active',b.dataset.lang===next);});var d=copy[next];$$('[data-copy]').forEach(function(el){var k=el.getAttribute('data-copy');if(d[k]!=null)el.innerHTML=d[k];});$$('[data-ph]').forEach(function(el){var k=el.getAttribute('data-ph');if(d[k]!=null)el.placeholder=d[k];});$('#lullabyBtn').textContent=lullabyOn?(next==='hi'?'♪ चालू':'♪ on'):(next==='hi'?'♪ बंद':'♪ off');renderCountdown();renderMine();renderLanterns();renderDiary(window._diary);if(speaking){try{speechSynthesis.cancel();}catch(e){}speaking=false;}}
+$$('[data-lang]').forEach(function(b){b.addEventListener('click',function(){setLanguage(b.dataset.lang);});});
+$$('[data-scroll]').forEach(function(b){b.addEventListener('click',function(){var t=document.getElementById(b.getAttribute('data-scroll'));if(t)t.scrollIntoView({behavior:'smooth'});});});
+/* curtains */
+var curtain=$('#curtain');
+function openCurtain(cb){curtain.classList.add('on');curtain.classList.remove('open');void curtain.offsetWidth;curtain.classList.add('open');setTimeout(function(){curtain.classList.remove('on');curtain.classList.remove('open');if(cb)cb();},2000);}
+function closeCurtain(cb){curtain.classList.add('on');curtain.classList.remove('open');setTimeout(function(){if(cb)cb();},1900);}
+/* particles */
+var cv=$('#fx'),ctx=cv.getContext('2d'),parts=[];
+function sizeCv(){cv.width=innerWidth;cv.height=innerHeight;}sizeCv();addEventListener('resize',sizeCv);
+function petal(x,y,n,spread){for(var i=0;i<n;i++){parts.push({x:x+(Math.random()-.5)*spread,y:y+(Math.random()-.5)*spread,vx:(Math.random()-.5)*1.4,vy:-.6-Math.random()*1.4,r:2+Math.random()*4,a:1,c:['#f7c6c5','#e9b44c','#f4a38f','#fff'][i%4],ph:Math.random()*6.28});}}
+function burst(x,y){petal(x,y,46,60);}
+setInterval(function(){if(document.hidden)return;if(parts.length<90&&Math.random()<.5)parts.push({x:Math.random()*cv.width,y:cv.height+8,vx:(Math.random()-.5)*.5,vy:-.4-Math.random()*.7,r:1.5+Math.random()*3,a:.75,c:Math.random()<.5?'#f7c6c5':'#e9b44c',ph:Math.random()*6.28});},420);
+(function loop(){ctx.clearRect(0,0,cv.width,cv.height);var t=Date.now()/1000;parts=parts.filter(function(p){return p.a>0.02&&p.y>-20;});parts.forEach(function(p){p.x+=p.vx+Math.sin(t+p.ph)*.5;p.y+=p.vy;p.a-=.004;ctx.globalAlpha=Math.max(0,p.a);ctx.fillStyle=p.c;ctx.beginPath();ctx.ellipse(p.x,p.y,p.r,p.r*.62,p.ph+t*.4,0,6.29);ctx.fill();});ctx.globalAlpha=1;requestAnimationFrame(loop);})();
+/* reveal on scroll */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+$$('.reveal').forEach(function(el){io.observe(el);});
+/* lullaby */
+var lull=$('#lullaby');
+function setLullaby(on){lullabyOn=on;$('#lullabyBtn').setAttribute('aria-pressed',on?'true':'false');$('#lullabyBtn').textContent=on?(lang==='hi'?'♪ चालू':'♪ on'):(lang==='hi'?'♪ बंद':'♪ off');if(on){lull.volume=.45;lull.play().catch(function(){});}else{lull.pause();}}
+$('#lullabyBtn').addEventListener('click',function(){setLullaby(!lullabyOn);});
+$('#moon').addEventListener('click',function(e){setLullaby(!lullabyOn);burst(e.clientX,e.clientY);});
+/* identity */
+(function(){var s=store();if(s.name)$('#vname').value=s.name;if(s.rel)$('#vrel').value=s.rel;})();
+function readIdentity(){var n=$('#vname').value.trim(),r=$('#vrel').value.trim();save({name:n,rel:r});}
+/* film flow */
+var film=$('#film');
+function startJourney(){readIdentity();$('#intro').hidden=true;$('#filmwrap').hidden=true;$('#journey').hidden=false;$('#final').hidden=false;$('#audiobar').hidden=false;setLullaby(true);document.getElementById('ch1').scrollIntoView();}
+$('#openCurtains').addEventListener('click',function(){readIdentity();closeCurtain(function(){$('#intro').hidden=true;$('#filmwrap').hidden=false;filmStarted=true;openCurtain(function(){film.play().catch(function(){startJourney();});setLullaby(true);});});});
+$('#skipFilm').addEventListener('click',function(){closeCurtain(function(){startJourney();openCurtain();});});
+function endFilm(){if(!filmStarted)return;filmStarted=false;try{film.pause();}catch(e){}closeCurtain(function(){startJourney();openCurtain();});}
+film.addEventListener('ended',endFilm);
+$('#filmSkip').addEventListener('click',endFilm);
+/* tour */
+$$('.tour-stop').forEach(function(b){b.addEventListener('click',function(){b.classList.toggle('open');});});
+/* gift */
+var giftIcons={star:'⭐',feather:'🪶',seed:'🌱'};
+function renderGift(){var g=store().gift;$$('.gift').forEach(function(b){b.classList.toggle('picked',b.getAttribute('data-gift')===g);});var pl=$('#placedGift');if(g){pl.hidden=false;pl.textContent=giftIcons[g];pl.className='placed '+g;$('#giftNote').textContent=copy[lang].giftPlaced;$('#giftAgain').hidden=false;}else{pl.hidden=true;$('#giftNote').textContent='';$('#giftAgain').hidden=true;}}
+$$('.gift').forEach(function(b){b.addEventListener('click',function(){save({gift:b.getAttribute('data-gift')});renderGift();var r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2);});});
+$('#giftAgain').addEventListener('click',function(){save({gift:null});renderGift();});
+/* reel */
+var reel=$('#reelVideo'),caps={en:['Everyone came to say hello.','A little celebration for a little girl.','So many arms ready to hold her.','The family grows a little bigger.','A tiny new beginning.'],hi:['सब उससे मिलने आए।','एक नन्ही बच्ची के लिए छोटी-सी खुशी।','उसे थामने के लिए कितनी सारी बाँहें।','परिवार थोड़ा और बड़ा हो गया।','एक नन्ही-सी नई शुरुआत।']};
+$$('[data-video]').forEach(function(btn){btn.addEventListener('click',function(){var n=btn.getAttribute('data-video');reel.src='public/assets/video/welcome-video-0'+n+'.mp4';reel.play().catch(function(){});$$('[data-video]').forEach(function(x){x.classList.toggle('active',x===btn);});$('#reelCaption').textContent=caps[lang][Number(n)-1]||caps[lang][0];});});
+/* capsule */
+function getWishes(){return store().wishes||[];}
+function renderCountdown(){var ms=CAPSULE_DATE-new Date();var d=Math.max(0,Math.ceil(ms/86400000));$('#countdown').textContent=lang==='hi'?('कैप्सूल खुलने में '+d+' दिन बचे हैं'):(d+' days until the capsule opens');}
+function renderMine(){var w=getWishes(),box=$('#mineBox'),list=$('#mineList');if(!w.length){box.hidden=true;return;}box.hidden=false;list.innerHTML='';w.slice().reverse().forEach(function(it){var div=document.createElement('div');div.className='wishchip';var sm=document.createElement('small');div.textContent=it.text;sm.textContent='— '+it.from+(it.rel?', her '+it.rel:'');div.appendChild(sm);list.appendChild(div);});}
+function renderLanterns(){var w=getWishes(),box=$('#lanterns');box.innerHTML='';$('#lanternHint').hidden=!w.length;w.forEach(function(it,i){var b=document.createElement('button');b.className='lantern';b.style.animationDelay=(i*.7)+'s';b.innerHTML='🏮<small>'+(it.from?it.from.charAt(0).toUpperCase():'♥')+'</small>';b.setAttribute('aria-label','Read wish');b.addEventListener('click',function(){alert('“'+it.text+'”\n— '+it.from+(it.rel?', her '+it.rel:''));});box.appendChild(b);});}
+function prefillWish(){var s=store();if(s.name&&!$('#wishName').value)$('#wishName').value=s.name;if(s.rel&&!$('#wishRel').value)$('#wishRel').value=s.rel;}
+$('#sealBtn').addEventListener('click',function(){var text=$('#wishText').value.trim();if(!text){$('#wishText').focus();return;}var name=$('#wishName').value.trim()||(lang==='hi'?'कोई अपना':'someone who loves her');var rel=$('#wishRel').value.trim();var w=getWishes();w.push({text:text,from:name,rel:rel,ts:Date.now()});save({wishes:w,name:$('#wishName').value.trim(),rel:rel});$('#wishForm').style.display='none';$('#sealedBox').classList.add('show');renderCountdown();renderMine();renderLanterns();var r=$('#sealedBox').getBoundingClientRect();burst(r.left+r.width/2,r.top+80);window._lastWish={text:text,from:name,rel:rel};});
+$('#writeAnother').addEventListener('click',function(){$('#wishText').value='';$('#sealedBox').classList.remove('show');$('#wishForm').style.display='';prefillWish();});
+$('#waShare').addEventListener('click',function(){var lw=window._lastWish;if(!lw)return;var msg='"'+lw.text+'" — '+lw.from+(lw.rel?' (her '+lw.rel+')':'')+', for '+BABY[lang];window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');});
+/* narration: produced mp3s, speech fallback */
+var narrPlayer=$('#narrPlayer'),narrFor=null;
+function narrText(key){var d=copy[lang];var map={ch1:d.ch1lede,ch2:d.ch2lede,ch3:d.ch3lede,ch4:d.ch4lede,ch5:d.ch5lede,ch6:d.ch6lede,ch7:d.finalBody,film:d.introLede};return map[key]||'';}
+function stopNarr(){try{narrPlayer.pause();}catch(e){}try{speechSynthesis.cancel();}catch(e){}speaking=false;narrFor=null;$$('.narr-btn').forEach(function(b){b.setAttribute('aria-pressed','false');});var fb=$('#narrFilmBtn');if(fb)fb.setAttribute('aria-pressed','false');}
+function playNarr(key,btn){if(narrFor===key){stopNarr();return;}stopNarr();narrFor=key;btn.setAttribute('aria-pressed','true');speaking=true;var done=function(){speaking=false;narrFor=null;btn.setAttribute('aria-pressed','false');};narrPlayer.onerror=function(){fallbackNarr(key,done);};narrPlayer.onended=done;narrPlayer.src='public/assets/audio/narration/'+key+'.mp3';try{var pr=narrPlayer.play();if(pr&&pr.catch)pr.catch(function(){fallbackNarr(key,done);});}catch(e){fallbackNarr(key,done);}}
+function fallbackNarr(key,done){if(!('speechSynthesis' in window)){done();return;}var u=new SpeechSynthesisUtterance(narrText(key));u.lang=lang==='hi'?'hi-IN':'en-IN';u.rate=.92;u.onend=done;try{speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){done();}}
+$$('.narr-btn').forEach(function(b){b.addEventListener('click',function(){playNarr(b.getAttribute('data-narr'),b);});});
+$('#narrFilmBtn').addEventListener('click',function(){var b=this;if(narrFor==='film'){stopNarr();b.setAttribute('aria-pressed','false');return;}stopNarr();narrFor='film';b.setAttribute('aria-pressed','true');speaking=true;var done=function(){speaking=false;narrFor=null;b.setAttribute('aria-pressed','false');};narrPlayer.onerror=function(){fallbackNarr('film',done);};narrPlayer.onended=done;narrPlayer.src='public/assets/audio/narration/film.mp3';try{var pr=narrPlayer.play();if(pr&&pr.catch)pr.catch(function(){fallbackNarr('film',done);});}catch(e){fallbackNarr('film',done);}});
+/* diary timeline */
+var DIARY_SEED={chapters:[{year:0,title:{en:'The morning she arrived',hi:'वो सुबह जब वो आई'},date:'29 September 2026',story:{en:'As dawn spilled its gold across the sleepy earth, she arrived — tiny, perfect, and already so deeply loved. Gatik, all of two and a half, stood a little taller that day: he had just been promoted to Big Brother.',hi:'जैसे ही भोर ने अपना सुनहरा उजाला बिखेरा, वो आ गई — नन्ही-सी, प्यारी-सी, और पहले से ही बहुत प्यारी। ढाई साल का गतिक उस दिन थोड़ा और बड़ा लग रहा था: उसे बड़े भाई के पद पर पदोन्नति मिल गई थी।'},photos:[],gifts:[]}]};
+function photoSrc(p){if(/^[\w-]{20,}$/.test(p))return 'https://drive.google.com/thumbnail?id='+p+'&sz=w1000';return p;}
+function renderDiary(data){if(!data||!data.chapters)return;window._diary=data;var tl=$('#timeline');if(!tl)return;tl.innerHTML='';(data.chapters||[]).forEach(function(c){var d=document.createElement('div');d.className='tchapter';var h='<div class="tyear">'+(lang==='hi'?'वर्ष ':'Year ')+c.year+'</div><h3>'+(c.title[lang]||c.title.en)+'</h3><p>'+(c.story[lang]||c.story.en)+'</p><div class="tdate">'+c.date+'</div>';(c.photos||[]).forEach(function(p){h+='<img src="'+photoSrc(p)+'" alt="" loading="lazy" style="border-radius:8px;margin-top:8px">';});if(c.gifts&&c.gifts.length){h+='<div class="tgifts">';c.gifts.forEach(function(g){h+='<div class="tgift"><b>'+(g.name[lang]||g.name.en)+'</b>'+(g.photo?'<img src="'+photoSrc(g.photo)+'" alt="" loading="lazy" style="border-radius:8px;margin-top:8px">':'')+'<p>'+(g.story[lang]||g.story.en)+'</p></div>';});h+='</div>';}d.innerHTML=h;tl.appendChild(d);});}
+fetch('public/data/diary.json').then(function(r){return r.json();}).then(renderDiary).catch(function(){renderDiary(DIARY_SEED);});
+/* easter egg: tap the title five times */
+var eggN=0;document.querySelector('.intro h1').addEventListener('click',function(e){if(++eggN>=5){eggN=0;burst(e.clientX||innerWidth/2,e.clientY||200);}});
+$('#playAgain').addEventListener('click',function(){closeCurtain(function(){$('#final').hidden=true;$('#journey').hidden=true;$('#audiobar').hidden=true;$('#intro').hidden=false;setLullaby(false);stopNarr();openCurtain();window.scrollTo(0,0);});});
+/* init */
+prefillWish();renderGift();renderCountdown();renderMine();renderLanterns();setLanguage('en');
+setTimeout(function(){openCurtain();},500);
+</script>
 </body>
 </html>
