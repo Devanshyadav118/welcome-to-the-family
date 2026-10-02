@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome, little star</title>
+  <meta name="description" content="An interactive welcome to a new little life." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#111d38; --night:#1b2e55; --cream:#fff8e9; --coral:#ed795d; --gold:#ffd277; --mist:#d8e8ef; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; color:var(--cream); background:var(--ink); font-family:"DM Sans",sans-serif; overflow-x:hidden; }
+    body::before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.34; background-image:radial-gradient(circle at 10% 20%, #fff 0 1px, transparent 1.5px),radial-gradient(circle at 78% 14%, #fff 0 1px, transparent 1.5px),radial-gradient(circle at 89% 71%, #fff 0 1px, transparent 1.5px),radial-gradient(circle at 31% 86%, #fff 0 1px, transparent 1.5px); background-size:240px 210px,310px 280px,270px 190px,370px 310px; }
+    .shell { width:min(1120px, calc(100% - 40px)); margin:auto; position:relative; }
+    header { padding:28px 0; display:flex; justify-content:space-between; align-items:center; color:var(--mist); font-size:.82rem; letter-spacing:.04em; }
+    .mark { color:var(--gold); font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    .progress { display:flex; gap:8px; align-items:center; }
+    .dot { width:7px; height:7px; border-radius:50%; background:#536888; transition:.3s; }
+    .dot.active { background:var(--gold); transform:scale(1.35); }
+    main { min-height:calc(100vh - 85px); display:grid; place-items:center; padding:36px 0 72px; }
+    .screen { display:none; width:100%; animation:rise .55s ease both; }
+    .screen.active { display:block; }
+    @keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+    .hero { min-height:68vh; display:grid; grid-template-columns:1.05fr .95fr; gap:60px; align-items:center; }
+    h1,h2 { font-family:Fraunces,serif; font-weight:500; line-height:1.02; letter-spacing:-.045em; margin:0 0 22px; }
+    h1 { font-size:clamp(4rem, 11vw, 8.5rem); max-width:730px; }
+    h2 { font-size:clamp(3rem, 7vw, 6.1rem); }
+    p { color:var(--mist); font-size:1.08rem; line-height:1.7; max-width:510px; margin:0 0 26px; }
+    .eyebrow { color:var(--gold); font-size:.76rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-bottom:20px; }
+    button { border:0; cursor:pointer; font:inherit; color:var(--ink); background:var(--gold); padding:15px 21px; border-radius:4px; font-weight:700; transition:transform .2s, background .2s; }
+    button:hover { transform:translateY(-2px); background:#ffe29f; }
+    button:focus-visible, input:focus-visible { outline:3px solid var(--coral); outline-offset:4px; }
+    .quiet { background:transparent; color:var(--mist); border:1px solid #536888; margin-left:8px; }
+    .quiet:hover { background:#2a416e; color:var(--cream); }
+    .moon-wrap { min-height:410px; display:grid; place-items:center; position:relative; }
+    .moon { width:min(33vw,310px); aspect-ratio:1; border-radius:50%; background:var(--gold); box-shadow:0 0 0 16px #ffd27716,0 0 90px #ffd27755; position:relative; }
+    .moon::after { content:""; position:absolute; width:100%; height:100%; border-radius:50%; background:var(--ink); left:31%; top:-8%; }
+    .orbit { position:absolute; width:min(41vw,390px); aspect-ratio:1; border:1px solid #d8e8ef4d; border-radius:50%; transform:rotate(-25deg); }
+    .orbit::before,.orbit::after { content:"✦"; position:absolute; color:var(--coral); font-size:1.4rem; }
+    .orbit::before { top:4%; left:12%; } .orbit::after { bottom:7%; right:9%; color:var(--gold); }
+    .card { background:#223962; border:1px solid #6881a34d; padding:34px; max-width:650px; border-radius:8px; }
+    .date { color:var(--gold); font-size:3.5rem; font-family:Fraunces,serif; margin-bottom:10px; }
+    .choices { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:30px 0 32px; max-width:900px; }
+    .choice { text-align:left; min-height:190px; padding:22px; color:var(--cream); background:#223962; border:1px solid #6881a34d; border-radius:6px; }
+    .choice strong { display:block; font-family:Fraunces,serif; font-size:1.65rem; font-weight:500; margin:24px 0 8px; }
+    .choice small { color:var(--mist); line-height:1.5; }
+    .choice.selected { border-color:var(--gold); box-shadow:inset 0 -4px var(--gold); }
+    .symbol { color:var(--coral); font-size:2rem; }
+    .message { display:grid; gap:16px; max-width:620px; }
+    textarea { resize:vertical; min-height:145px; width:100%; padding:16px; border-radius:5px; border:1px solid #6881a3; background:#223962; color:var(--cream); font:inherit; line-height:1.5; }
+    .ending { text-align:center; display:grid; place-items:center; min-height:68vh; }
+    .ending p { margin-inline:auto; }
+    .starburst { color:var(--gold); font-size:3rem; margin-bottom:22px; animation:twinkle 2.4s ease-in-out infinite; }
+    @keyframes twinkle { 50% { transform:scale(1.18) rotate(8deg); opacity:.7; } }
+    .signature { margin-top:36px; color:var(--mist); font-size:.9rem; }
+    @media (max-width:720px) { .shell { width:min(100% - 28px, 560px); } header { padding-top:20px; } .hero { grid-template-columns:1fr; gap:10px; text-align:center; } .hero p { margin-inline:auto; } .moon-wrap { min-height:280px; order:-1; } .moon { width:220px; } .orbit { width:280px; } .choices { grid-template-columns:1fr; } .choice { min-height:auto; } .card { padding:25px; } .quiet { margin:10px 0 0 0; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header><div class="mark">A little beginning</div><div class="progress" aria-label="Game progress"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></header>
+    <main>
+      <section class="screen active" data-step="0">
+        <div class="hero"><div><div class="eyebrow">29 September · a new chapter</div><h1>Welcome,<br>little star.</h1><p>A tiny person has arrived, and the world already feels a little more wonderful.</p><button data-next>Open the welcome</button></div><div class="moon-wrap" aria-hidden="true"><div class="orbit"></div><div class="moon"></div></div></div>
+      </section>
+      <section class="screen" data-step="1">
+        <div class="card"><div class="eyebrow">The first page</div><div class="date">29 September</div><h2>The day love got a new name.</h2><p>Every life begins with a moment. This one began with hope, happy tears, and a room full of people ready to love you.</p><button data-next>Continue the story</button></div>
+      </section>
+      <section class="screen" data-step="2">
+        <div class="eyebrow">Choose a little blessing</div><h2>Which path<br>will you take?</h2><p>There is no wrong answer. Choose the quality you hope follows this little one through life.</p>
+        <div class="choices"><button class="choice" data-choice="wonder"><span class="symbol">✦</span><strong>Wonder</strong><small>May the world always feel full of things worth discovering.</small></button><button class="choice" data-choice="dreams"><span class="symbol">☾</span><strong>Dreams</strong><small>May imagination make every horizon feel possible.</small></button><button class="choice" data-choice="courage"><span class="symbol">♢</span><strong>Courage</strong><small>May a kind heart always find its way through.</small></button></div>
+        <button data-next disabled id="choice-next">Keep this blessing</button>
+      </section>
+      <section class="screen" data-step="3">
+        <div class="message"><div class="eyebrow">A note for later</div><h2>Leave a wish<br>for the future.</h2><p>Write something for the baby to discover one day. It can be a promise, a hope, or just a hello.</p><textarea id="wish" maxlength="240" placeholder="Dear little one…"></textarea><div><button id="finish">Seal the message</button><button class="quiet" id="skip">Skip for now</button></div></div>
+      </section>
+      <section class="screen" data-step="4"><div class="ending"><div><div class="starburst">✦</div><div class="eyebrow">The story begins here</div><h2>Welcome,<br>little star.</h2><p id="final-copy">May your days be filled with wonder, your nights with dreams, and your path with love.</p><div class="signature">Made with love for [Baby’s Name]</div><button id="restart">Play again</button></div></div></section>
+    </main>
+  </div>
+  <script>
+    const screens = [...document.querySelectorAll('.screen')];
+    const dots = [...document.querySelectorAll('.dot')];
+    let step = 0, blessing = '';
+    const show = (next) => { step = next; screens.forEach((s,i)=>s.classList.toggle('active', i===step)); dots.forEach((d,i)=>d.classList.toggle('active', i===Math.min(step,3))); window.scrollTo({top:0,behavior:'smooth'}); };
+    document.querySelectorAll('[data-next]').forEach(btn => btn.addEventListener('click', () => show(step + 1)));
+    document.querySelectorAll('[data-choice]').forEach(btn => btn.addEventListener('click', () => { document.querySelectorAll('[data-choice]').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); blessing = btn.dataset.choice; document.querySelector('#choice-next').disabled = false; }));
+    document.querySelector('#finish').addEventListener('click', () => { const wish = document.querySelector('#wish').value.trim(); document.querySelector('#final-copy').textContent = wish ? 'Your wish has joined the constellation. May it travel with this little one for years to come.' : 'May your days be filled with wonder, your nights with dreams, and your path with love.'; show(4); });
+    document.querySelector('#skip').addEventListener('click', () => show(4));
+    document.querySelector('#restart').addEventListener('click', () => { document.querySelector('#wish').value=''; document.querySelectorAll('[data-choice]').forEach(b=>b.classList.remove('selected')); document.querySelector('#choice-next').disabled=true; show(0); });
+  </script>
+</body>
+</html>
